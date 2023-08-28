@@ -3,7 +3,7 @@
 import reflex as rx
 
 from webui import styles
-from webui.components import chat, modal, navbar, sidebar
+from webui.components import chat, modal, navbar, sidebar, login, signup
 from webui.state import State
 
 
@@ -25,5 +25,7 @@ def index() -> rx.Component:
 
 # Add state and page to the app.
 app = rx.App(state=State, style=styles.base_style)
-app.add_page(index)
+app.add_page(login)
+app.add_page(signup)
+app.add_page(index, route="/", on_load=State.check_login())
 app.compile()

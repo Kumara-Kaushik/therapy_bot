@@ -25,9 +25,9 @@ def navbar():
                     href="/",
                 ),
                 rx.breadcrumb(
-                    rx.breadcrumb_item(
-                        rx.heading("ReflexGPT", size="sm"),
-                    ),
+                    # rx.breadcrumb_item(
+                    #     rx.heading("ReflexGPT", size="sm"),
+                    # ),
                     rx.breadcrumb_item(
                         rx.text(State.current_chat, size="sm", font_weight="normal"),
                     ),
@@ -51,7 +51,8 @@ def navbar():
                         rx.menu_item("Delete Chat",
                                      on_click=State.toggle_modal),
                         rx.menu_divider(),
-                        rx.menu_item("Logout"),
+                        rx.menu_item("Logout",
+                                     on_click=State.logout),
                     ),
                 ),
                 spacing="8",

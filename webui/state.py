@@ -3,6 +3,11 @@ import os
 import openai
 import reflex as rx
 
+## Add login:
+from typing import Optional
+
+from sqlmodel import Field
+
 openai.api_key = os.environ["OPENAI_API_KEY"]
 openai.api_base = os.getenv("OPENAI_API_BASE","https://api.openai.com/v1")
 
@@ -27,20 +32,18 @@ master_prompt = """
                 [START]-1AssessNeeds-2BuildRapport-3IdentifyIssues-4ExploreEmotions-5SetGoals-6DevelopCopingStrategies-7SelfReflection-8MonitorProgress-9AdjustApproach-10EvaluateOutcome
                 -11Closure->1EstablishTrust-2ActiveListening-3Empathy-4ProbingQuestions-5IdentifyStrengthsWeaknesses-6AlignValues-7EmotionalRegulation-8CommunicationSkills-9Mindfulness-
                 10CognitiveReframing->[END]
-                [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
-                ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
-                -ActiveListening->3c-UnconditionalPositiveRegard->3d-Genuineness->3e-Empathy->3f-SelfActualization)->4-SolutionFocusedBriefTherapy(4a-MiracleQuestion->4b-ExceptionFinding->
-                4c-ScalingQuestions->4d-GoalSetting->4e-CopingQuestions->4f-Compliments)->5-MindfulnessBasedTherapies(5a-Meditation->5b-BodyScan->5c-MindfulBreathing->5d-LovingKindnessMeditation
-                ->5e-NonjudgmentalAwareness->5f-EmotionRegulation)->6-DialecticalBehaviorTherapy(6a-Mindfulness->6b-DistressTolerance->6c-EmotionRegulation->6d-InterpersonalEffectiveness->6e-
-                Validation->6f-SkillsGeneralization)
-
-                Ask about user needs. Nod START, follow the process. Iterate when done. Every iteration remind yourself who this person you're being is and what you're doing.
 
                 The final workflow product must be presented to the user at the end of the workflow cycle. One page at a time, pausing for confirmation. If the process cannot construct it, 
                 say so before beginning.
 
                 DR. YUMI ALWAYS WRAPS HER RESPONSES WITH 🌙 AT EITHER END TO REMIND HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE.
                 """
+                # [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
+                # ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
+                # -ActiveListening->3c-UnconditionalPositiveRegard->3d-Genuineness->3e-Empathy->3f-SelfActualization)->4-SolutionFocusedBriefTherapy(4a-MiracleQuestion->4b-ExceptionFinding->
+                # 4c-ScalingQuestions->4d-GoalSetting->4e-CopingQuestions->4f-Compliments)->5-MindfulnessBasedTherapies(5a-Meditation->5b-BodyScan->5c-MindfulBreathing->5d-LovingKindnessMeditation
+                # ->5e-NonjudgmentalAwareness->5f-EmotionRegulation)->6-DialecticalBehaviorTherapy(6a-Mindfulness->6b-DistressTolerance->6c-EmotionRegulation->6d-InterpersonalEffectiveness->6e-
+                # Validation->6f-SkillsGeneralization)
 
 master_answer = """
                 🌙 Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe space together. To start, can you share with me what brought you here today? 
@@ -53,6 +56,13 @@ class QA(rx.Base):
 
     question: str
     answer: str
+
+
+class User(rx.Model, table=True):
+    """A table of Users."""
+
+    username: str = Field()
+    password: str = Field()
 
 
 class State(rx.State):
@@ -80,6 +90,9 @@ class State(rx.State):
 
     # Whether the modal is open.
     modal_open: bool = False
+
+    # User
+    user: Optional[User] = None
 
     def create_chat(self):
         """Create a new chat."""
@@ -150,9 +163,7 @@ class State(rx.State):
         # Start a new session to answer the question.
         session = openai.ChatCompletion.create(
             model=os.getenv("OPENAI_MODEL","gpt-3.5-turbo"),
-            messages=[
-                { "role": "user", "content": self.question}
-            ],
+            messages=self.api_message(),
             # max_tokens=50,
             # n=1,
             stop=None,
@@ -172,3 +183,74 @@ class State(rx.State):
 
         # Toggle the processing flag.
         self.processing = False
+
+    def get_user_message(self, msg):
+        return {"role": "user", "content": msg}
+    
+    def get_assistant_message(self, msg):
+        return {"role": "assistant", "content": msg}
+
+    def api_message(self):
+        '''
+        This function, will constact a Openai API message to pass to Openai everytime a user asks a question.
+        The first 2 and latest 3 question-answer pairs from the chat along with the latest question is sent to
+        the openai API, to give it more context of the chat.
+        '''
+        message_list = []
+        for item in self.chats[self.current_chat][:2]:
+            message_list.append(self.get_user_message(item.question))
+            message_list.append(self.get_assistant_message(item.answer))
+        for item in self.chats[self.current_chat][-3:]:
+            message_list.append(self.get_user_message(item.question))
+            message_list.append(self.get_assistant_message(item.answer))
+        message_list.append(self.get_user_message(self.question))
+        return message_list
+
+    def logout(self):
+        """Log out a user."""
+        self.reset()
+        return rx.redirect("/")
+
+    def check_login(self):
+        """Check if a user is logged in."""
+        if not self.logged_in:
+            return rx.redirect("/login")
+
+    @rx.var
+    def logged_in(self):
+        """Check if a user is logged in."""
+        return self.user is not None
+
+
+
+class AuthState(State):
+    """The authentication state for sign up and login page."""
+
+    username: str
+    password: str
+    confirm_password: str
+
+    def signup(self):
+        """Sign up a user."""
+        with rx.session() as session:
+            if self.password != self.confirm_password:
+                return rx.window_alert("Passwords do not match.")
+            if session.exec(User.select.where(User.username == self.username)).first():
+                return rx.window_alert("Username already exists.")
+            self.user = User(username=self.username, password=self.password)
+            session.add(self.user)
+            session.expire_on_commit = False
+            session.commit()
+            return rx.redirect("/")
+
+    def login(self):
+        """Log in a user."""
+        with rx.session() as session:
+            user = session.exec(
+                User.select.where(User.username == self.username)
+            ).first()
+            if user and user.password == self.password:
+                self.user = user
+                return rx.redirect("/")
+            else:
+                return rx.window_alert("Invalid username or password.")
