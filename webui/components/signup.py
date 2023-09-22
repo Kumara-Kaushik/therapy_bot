@@ -3,6 +3,7 @@ import reflex as rx
 
 from webui.auth import auth_layout
 from webui.state import AuthState
+from webui import styles
 
 def signup():
     """The sign up page."""
@@ -29,15 +30,15 @@ def signup():
                 _hover={"bg": "blue.600"},
             ),
             align_items="left",
-            bg="white",
-            border="1px solid #eaeaea",
+            bg=styles.bg_medium_color,
+            border=styles.border_color,
             p=4,
             max_width="400px",
             border_radius="lg",
         ),
         rx.text(
             "Already have an account? ",
-            rx.link("Sign in here.", href="/", color="blue.500"),
+            rx.link("Sign in here.", href="/login", color="blue.500"),
             color="gray.600",
         ),
     )
