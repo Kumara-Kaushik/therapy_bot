@@ -8,7 +8,7 @@ from typing import Optional
 
 from sqlmodel import Field
 
-openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.api_key = os.environ["OPENAI_KEY"]
 openai.api_base = os.getenv("OPENAI_API_BASE","https://api.openai.com/v1")
 
 master_prompt = """
