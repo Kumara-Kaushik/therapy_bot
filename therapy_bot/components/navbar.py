@@ -1,7 +1,7 @@
 import reflex as rx
 
-from webui import styles
-from webui.state import State
+from therapy_bot import styles
+from therapy_bot.state import State
 
 
 def navbar():

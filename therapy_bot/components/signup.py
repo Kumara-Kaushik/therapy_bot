@@ -1,9 +1,9 @@
 """Sign up page. Uses auth_layout to render UI shared with the login page."""
 import reflex as rx
 
-from webui.auth import auth_layout
-from webui.state import AuthState
-from webui import styles
+from therapy_bot.auth import auth_layout
+from therapy_bot.state import AuthState
+from therapy_bot import styles
 
 def signup():
     """The sign up page."""

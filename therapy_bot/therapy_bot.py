@@ -2,9 +2,9 @@
 
 import reflex as rx
 
-from webui import styles
-from webui.components import chat, modal, navbar, sidebar, login, signup
-from webui.state import State
+from therapy_bot import styles
+from therapy_bot.components import chat, modal, navbar, sidebar, login, signup
+from therapy_bot.state import State
 
 
 def index() -> rx.Component:

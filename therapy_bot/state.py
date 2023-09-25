@@ -267,3 +267,4 @@ class AuthState(State):
                 return rx.redirect("/")
             else:
                 return rx.window_alert("Invalid username or password.")
+            

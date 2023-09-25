@@ -1,5 +1,5 @@
 import reflex as rx
-from webui import styles
+from therapy_bot import styles
 
 def auth_layout(*args):
     """The shared layout for the login and sign up pages."""

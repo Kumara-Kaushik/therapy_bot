@@ -1,8 +1,8 @@
 import reflex as rx
 
-from webui import styles
-from webui.components import loading_icon
-from webui.state import QA, State
+from therapy_bot import styles
+from therapy_bot.components import loading_icon
+from therapy_bot.state import QA, State
 
 
 def full_message(qa: QA) -> rx.Component:
