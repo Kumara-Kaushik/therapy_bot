@@ -9,10 +9,13 @@ def login():
     """The login page."""
     return auth_layout(
         rx.box(
-            rx.input(placeholder="Username", on_blur=AuthState.set_username, mb=4),
+            rx.input(placeholder="Username", 
+                     color="white",
+                     on_blur=AuthState.set_username, mb=4),
             rx.input(
                 type_="password",
                 placeholder="Password",
+                color="white",
                 on_blur=AuthState.set_password,
                 mb=4,
             ),
@@ -33,7 +36,7 @@ def login():
         rx.text(
             "Don't have an account yet? ",
             rx.link("Sign up here.", href="/signup", color="blue.500"),
-            color="gray.600",
+            color="#A9A9A9",
         ),
         # bg=styles.bg_dark_color,
         # color=styles.text_light_color,

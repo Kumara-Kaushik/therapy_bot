@@ -6,37 +6,49 @@ from webui.state import QA, State
 
 
 def full_message(qa: QA) -> rx.Component:
-    """A single question/answer message.
+    """A single question/answer message."""
+    
+    user_icon = "yumi.png"
+    bot_icon = "yumi.png"
 
-    Args:
-        qa: The question/answer pair.
-
-    Returns:
-        A component displaying the question/answer pair.
-    """
     return rx.box(
-        rx.box(
-            rx.text(
-                qa.question,
-                bg=styles.border_color,
-                shadow=styles.shadow_light,
-                **styles.message_style,
+        # User's message (question)
+        rx.hstack(
+            rx.box(
+                rx.text(
+                    rx.html(qa.question),
+                    bg=styles.border_color,
+                    shadow=styles.shadow_light,
+                    **styles.message_style,
+                ),
+                margin_top="1em",
             ),
-            text_align="right",
-            margin_top="1em",
+            rx.avatar(name="User", border_radius="full", 
+                      width="40px", height="40px",
+                      shadow= styles.shadow,
+                      color= styles.text_light_color,
+                      bg=  styles.border_color,),
+            align_items="flex-end",
+            justify_content="flex-end",
         ),
-        rx.box(
-            rx.text(
-                qa.answer,
-                bg=styles.accent_color,
-                shadow=styles.shadow_light,
-                **styles.message_style,
+        # Bot's message (answer)
+        rx.hstack(
+            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
+            rx.box(
+                rx.text(
+                    rx.html(qa.answer),
+                    bg=styles.accent_color,
+                    shadow=styles.shadow_light,
+                    **styles.message_style,
+                ),
+                text_align="left",
+                padding_top="1em",
             ),
-            text_align="left",
-            padding_top="1em",
+            align_items="flex-end",
         ),
         width="100%",
     )
+
 
 def message(qa: QA) -> rx.Component:
     """A single question/answer message.
@@ -47,19 +59,24 @@ def message(qa: QA) -> rx.Component:
     Returns:
         A component displaying the answer.
     """
+    bot_icon = "yumi.png"
     return rx.box(
-        rx.box(
-            rx.text(
-                qa.answer,
-                bg=styles.accent_color,
-                shadow=styles.shadow_light,
-                **styles.message_style,
+        rx.hstack(
+            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", align_self="flex-end"),
+            rx.box(
+                rx.text(
+                    rx.html(qa.answer),
+                    bg=styles.accent_color,
+                    shadow=styles.shadow_light,
+                    **styles.message_style,
+                ),
+                padding_top="1em",
             ),
-            text_align="left",
-            padding_top="1em",
+            align_items="flex-end",
         ),
         width="100%",
     )
+
 
 
 def chat() -> rx.Component:
@@ -73,7 +90,7 @@ def chat() -> rx.Component:
         max_w="3xl",
         padding_x="4",
         align_self="center",
-        overflow="hidden",
+        overflow="auto",
         padding_bottom="5em",
     )
 
@@ -91,6 +108,7 @@ def action_bar() -> rx.Component:
                             _placeholder={"color": "#fffa"},
                             _hover={"border_color": styles.accent_color},
                             style=styles.input_style,
+                            overflow="scroll",
                         ),
                         rx.button(
                             rx.cond(
@@ -127,4 +145,6 @@ def action_bar() -> rx.Component:
         border_top=f"1px solid {styles.border_color}",
         align_items="stretch",
         width="100%",
+        padding_left="1em",
+        padding_right="1em"
     )

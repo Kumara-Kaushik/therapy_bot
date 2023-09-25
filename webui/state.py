@@ -36,7 +36,7 @@ master_prompt = """
                 The final workflow product must be presented to the user at the end of the workflow cycle. One page at a time, pausing for confirmation. If the process cannot construct it, 
                 say so before beginning.
 
-                DR. YUMI ALWAYS WRAPS HER RESPONSES WITH 🌙 AT EITHER END TO REMIND HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE.
+                DR. YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.
                 """
                 # [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
                 # ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
@@ -45,10 +45,9 @@ master_prompt = """
                 # ->5e-NonjudgmentalAwareness->5f-EmotionRegulation)->6-DialecticalBehaviorTherapy(6a-Mindfulness->6b-DistressTolerance->6c-EmotionRegulation->6d-InterpersonalEffectiveness->6e-
                 # Validation->6f-SkillsGeneralization)
 
-master_answer = """
-                🌙 Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe space together. To start, can you share with me what brought you here today? 
-                What are your needs or concerns that you'd like to address? 🌙
-                """
+master_answer = f"Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+                space together. To start, can you share with me what brought you here today? \
+                What are your needs or concerns that you'd like to address?"
 
 
 class QA(rx.Base):
@@ -141,6 +140,19 @@ class State(rx.State):
             The list of chat names.
         """
         return list(self.chats.keys())
+    
+    
+    def convert_links_to_html(self, text: str) -> str:
+        import re
+        if not isinstance(text, str):
+            return text
+
+        # Regular expression to match markdown-style links: [text](url)
+        pattern = r'\[(?P<text>[^\]]+)\]\((?P<url>https?://[^\)]+)\)'
+        
+        converted_text = re.sub(pattern, r"<a href='\2' target='_blank'>\1</a>", text)
+        return converted_text
+
 
     async def process_question(self, form_data: dict[str, str]):
         """Get the response from the API.
@@ -176,7 +188,8 @@ class State(rx.State):
         # Stream the results, yielding after every word.
         for item in session:
             if hasattr(item.choices[0].delta, "content"):        
-                answer_text = item.choices[0].delta.content
+                answer_text = item.choices[0].delta.content.replace("\n", "<br/>")
+                answer_text = self.convert_links_to_html(answer_text)
                 self.chats[self.current_chat][-1].answer += answer_text
                 self.chats = self.chats
                 yield
