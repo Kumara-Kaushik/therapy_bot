@@ -61,8 +61,9 @@ def message(qa: QA) -> rx.Component:
     """
     bot_icon = "/yumi.png"
     return rx.box(
+        # Bot's message (answer)
         rx.hstack(
-            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", align_self="flex-end"),
+            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
             rx.box(
                 rx.text(
                     rx.html(qa.answer),
@@ -70,6 +71,7 @@ def message(qa: QA) -> rx.Component:
                     shadow=styles.shadow_light,
                     **styles.message_style,
                 ),
+                text_align="left",
                 padding_top="1em",
             ),
             align_items="flex-end",
@@ -80,7 +82,8 @@ def message(qa: QA) -> rx.Component:
 def chat_layout() -> rx.Component:
     """List all the messages in a single conversation."""
     return rx.vstack(
-        message(State.chats[State.current_chat][0]),
+        # rx.box(message(State.chats[State.current_chat][0])),
+        rx.box(rx.foreach(State.chats[State.current_chat][:1], message)),
         rx.box(rx.foreach(State.chats[State.current_chat][1:], full_message)),
         py="8",
         flex="1",
