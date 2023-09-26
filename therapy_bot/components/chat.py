@@ -1,15 +1,15 @@
 import reflex as rx
 
 from therapy_bot import styles
-from therapy_bot.components import loading_icon
+from therapy_bot.components import loading_icon, navbar, modal
 from therapy_bot.state import QA, State
 
 
 def full_message(qa: QA) -> rx.Component:
     """A single question/answer message."""
     
-    user_icon = "yumi.png"
-    bot_icon = "yumi.png"
+    user_icon = "/yumi.png"
+    bot_icon = "/yumi.png"
 
     return rx.box(
         # User's message (question)
@@ -59,7 +59,7 @@ def message(qa: QA) -> rx.Component:
     Returns:
         A component displaying the answer.
     """
-    bot_icon = "yumi.png"
+    bot_icon = "/yumi.png"
     return rx.box(
         rx.hstack(
             rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", align_self="flex-end"),
@@ -77,9 +77,7 @@ def message(qa: QA) -> rx.Component:
         width="100%",
     )
 
-
-
-def chat() -> rx.Component:
+def chat_layout() -> rx.Component:
     """List all the messages in a single conversation."""
     return rx.vstack(
         message(State.chats[State.current_chat][0]),
@@ -94,6 +92,19 @@ def chat() -> rx.Component:
         padding_bottom="5em",
     )
 
+def chat():
+    return rx.vstack(
+                navbar(),
+                chat_layout(),
+                action_bar(),
+                # sidebar(),
+                modal(),
+                bg=styles.bg_dark_color,
+                color=styles.text_light_color,
+                min_h="100vh",
+                align_items="stretch",
+                spacing="0",
+        )
 
 def action_bar() -> rx.Component:
     """The action bar to send a new message."""

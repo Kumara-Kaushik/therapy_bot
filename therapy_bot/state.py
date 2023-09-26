@@ -222,12 +222,12 @@ class State(rx.State):
     def logout(self):
         """Log out a user."""
         self.reset()
-        return rx.redirect("/login")
+        return rx.redirect("/")
 
     def check_login(self):
         """Check if a user is logged in."""
         if not self.logged_in:
-            return rx.redirect("/login")
+            return rx.redirect("/")
 
     @rx.var
     def logged_in(self):
@@ -254,7 +254,7 @@ class AuthState(State):
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
-            return rx.redirect("/")
+            return rx.redirect("/chat")
 
     def login(self):
         """Log in a user."""
@@ -264,7 +264,7 @@ class AuthState(State):
             ).first()
             if user and user.password == self.password:
                 self.user = user
-                return rx.redirect("/")
+                return rx.redirect("/chat")
             else:
                 return rx.window_alert("Invalid username or password.")
             

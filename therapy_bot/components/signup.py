@@ -42,7 +42,7 @@ def signup():
         ),
         rx.text(
             "Already have an account? ",
-            rx.link("Sign in here.", href="/login", color="blue.500"),
+            rx.link("Sign in here.", href="/", color="blue.500"),
             color="gray.600",
         ),
     )

@@ -5,6 +5,7 @@ from therapy_bot.state import State
 
 
 def navbar():
+    bot_icon = "/yumi.png"
     return rx.box(
         rx.hstack(
             rx.hstack(
@@ -15,14 +16,8 @@ def navbar():
                 #     cursor="pointer",
                 # ),
                 rx.link(
-                    rx.box(
-                        rx.image(src="favicon.ico", width=30, height="auto"),
-                        p="1",
-                        border_radius="6",
-                        bg="#F0F0F0",
-                        mr="2",
-                    ),
-                    href="/",
+                    rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
+                    href="/chat",
                 ),
                 rx.breadcrumb(
                     # rx.breadcrumb_item(

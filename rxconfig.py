@@ -7,9 +7,5 @@ class WebuiConfig(rx.Config):
 
 config = WebuiConfig(
     app_name="therapy_bot",
-    db_url="sqlite:///reflex.db",
-    env=rx.Env.DEV,
-    frontend_packages=[
-        "react-loading-icons",
-    ],
+    # api_url="https://yumisensei.online"
 )
