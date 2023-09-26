@@ -22,6 +22,7 @@ def signup():
             rx.input(
                 type_="password",
                 placeholder="Confirm password",
+                color="white",
                 on_blur=AuthState.set_confirm_password,
                 mb=4,
             ),

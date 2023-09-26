@@ -19,12 +19,14 @@ def auth_layout(*args):
             # color=styles.text_light_color,
             flex_direction="column",
             align_items="center",
+            padding_top="10vh",
             text_align="center",
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.heading(
-            rx.span("An AI therapist trained to listen and offer compassionate advice to you!"),
+        rx.text(
+            rx.span("An compassionate AI therapist, made with ❤️ by Kai - An experienced AI Engineer and a \
+                     passionate suicide hotline volunteer."),
             display="flex",
             size="sm",
             color=styles.text_light_color,
