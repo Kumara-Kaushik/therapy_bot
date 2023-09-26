@@ -37,6 +37,7 @@ def login():
             "Don't have an account yet? ",
             rx.link("Sign up here.", href="/signup", color="blue.500"),
             color="#A9A9A9",
+            text_align="center",
         ),
         # bg=styles.bg_dark_color,
         # color=styles.text_light_color,

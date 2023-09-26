@@ -44,5 +44,6 @@ def signup():
             "Already have an account? ",
             rx.link("Sign in here.", href="/", color="blue.500"),
             color="gray.600",
+            text_align="center",
         ),
     )
