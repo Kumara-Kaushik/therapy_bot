@@ -63,3 +63,56 @@ def modal() -> rx.Component:
         ),
         is_open=State.modal_open,
     )
+
+
+def modal_alert() -> rx.Component:
+    return rx.modal(
+        rx.modal_overlay(
+            rx.modal_content(
+                rx.modal_header(
+                    rx.hstack(
+                        rx.vstack(
+                            rx.text("Engagement Alert"),
+                        ),
+                        rx.icon(
+                            tag="close",
+                            font_size="sm",
+                            on_click=State.toggle_change,
+                            color="#fff8",
+                            _hover={"color": "#fff"},
+                            cursor="pointer",
+                        ),
+                        align_items="center",
+                        justify_content="space-between",
+                    )
+                ),
+                rx.modal_body(
+                    rx.html("Hey! Enjoying the app? I'd like to make this app accessible to \
+                         everyone who needs support, which unfortunately isn't cheap. </br></br>Please support me on this mission \
+                         and take some time to leave some feedback on the Discord Server! :)")
+                ),
+                rx.modal_footer(
+                    rx.hstack(
+                        rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;height:36px;' 
+                             src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>"""),
+                        rx.button(
+                            "Join Discord",
+                            bg="#5535d4",
+                            box_shadow="md",
+                            px="4",
+                            py="2",
+                            h="auto",
+                            _hover={"bg": "#4c2db3"},
+                            on_click=[lambda: rx.redirect("https://discord.gg/aKyQEuRT")],
+                        ),
+                    ),
+                    align_items="center",
+                    justify_content="space-between",
+
+                ),
+                bg="#222",
+                color="#fff",
+            ),
+        ),
+        is_open=State.show,
+    )

@@ -39,6 +39,14 @@ def auth_layout(*args):
             color="#A9A9A9",
         ),
         *args,
+        rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;height:36px;' 
+                             src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>""",
+                position="fixed",
+                left="1em",
+                bottom="1em",),
+        # rx.html("""<script type="text/javascript" 
+        #                     src="https://platform-api.sharethis.com/js/sharethis.js#property=651552f9dbc58b001ae436bb&product=inline-share-buttons&source=platform" 
+        #                     async="async"></script>"""),
         border_top_radius="lg",
         # box_shadow="0 4px 60px 0 rgba(0, 0, 0, 0.08), 0 4px 16px 0 rgba(0, 0, 0, 0.08)",
         display="flex",
@@ -59,4 +67,5 @@ def auth_layout(*args):
         # background="url(bg.svg)",  # Comment this out if you don't want any other background
         background_repeat="no-repeat",
         background_size="cover",
+        padding_bottom = "5em"
     )

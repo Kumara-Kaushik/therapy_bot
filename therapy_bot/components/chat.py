@@ -1,7 +1,7 @@
 import reflex as rx
 
 from therapy_bot import styles
-from therapy_bot.components import loading_icon, navbar, modal
+from therapy_bot.components import loading_icon, navbar, modal, modal_alert
 from therapy_bot.state import QA, State
 
 
@@ -102,6 +102,7 @@ def chat():
                 action_bar(),
                 # sidebar(),
                 modal(),
+                modal_alert(),
                 bg=styles.bg_dark_color,
                 color=styles.text_light_color,
                 min_h="100vh",
@@ -162,3 +163,4 @@ def action_bar() -> rx.Component:
         padding_left="1em",
         padding_right="1em"
     )
+

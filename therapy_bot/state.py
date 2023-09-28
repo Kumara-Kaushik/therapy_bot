@@ -62,7 +62,7 @@ class User(rx.Model, table=True):
 
     username: str = Field()
     password: str = Field()
-
+    message_count: int = Field(default=0)
 
 class State(rx.State):
     """The app state."""
@@ -92,6 +92,9 @@ class State(rx.State):
 
     # User
     user: Optional[User] = None
+
+    # Alert
+    show: bool = False
 
     def create_chat(self):
         """Create a new chat."""
@@ -197,6 +200,16 @@ class State(rx.State):
         # Toggle the processing flag.
         self.processing = False
 
+        self.user.message_count += 1
+        if self.user.message_count in [15, 50, 100, 200, 300, 400, 500]:
+            self.show = True
+        else:
+            self.show = False
+
+
+    def toggle_change(self):
+        self.show = not (self.show)
+
     def get_user_message(self, msg):
         return {"role": "user", "content": msg}
     
@@ -233,6 +246,13 @@ class State(rx.State):
     def logged_in(self):
         """Check if a user is logged in."""
         return self.user is not None
+    
+    def enter_user_msg_number(self):
+        """Use this function to register the total number of messages sent by user when session ends."""
+        with rx.session() as session:
+            session.add(self.user)
+            session.commit()
+            return rx.redirect("/")
 
 
 
