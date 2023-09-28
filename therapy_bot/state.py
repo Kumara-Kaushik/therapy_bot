@@ -201,7 +201,8 @@ class State(rx.State):
         self.processing = False
 
         self.user.message_count += 1
-        if self.user.message_count in [15, 50, 100, 200, 300, 400, 500]:
+        print(self.user.message_count)
+        if (self.user.message_count in [15, 50, 100]) or (self.user.message_count%100==0):
             self.show = True
         else:
             self.show = False
@@ -253,7 +254,6 @@ class State(rx.State):
             session.add(self.user)
             session.commit()
             return rx.redirect("/")
-
 
 
 class AuthState(State):

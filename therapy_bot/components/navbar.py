@@ -47,7 +47,7 @@ def navbar():
                                      on_click=State.toggle_modal),
                         rx.menu_divider(),
                         rx.menu_item("Logout",
-                                     on_click=State.logout),
+                                     on_click=[State.enter_user_msg_number, State.logout]),
                     ),
                 ),
                 spacing="8",

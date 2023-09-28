@@ -87,9 +87,10 @@ def modal_alert() -> rx.Component:
                     )
                 ),
                 rx.modal_body(
-                    rx.html("Hey! Enjoying the app? I'd like to make this app accessible to \
-                         everyone who needs support, which unfortunately isn't cheap. </br></br>Please support me on this mission \
-                         and take some time to leave some feedback on the Discord Server! :)")
+                    rx.html("Hey! Is the conversation helping? I'd like to make this app accessible to \
+                         everyone who needs support, which unfortunately isn't cheap. </br></br>Please Support me on this mission \
+                         and take some time to leave some feedback on the Discord Server for any suggestions or improvements! :) \
+                         </br></br>If you have already done so, Please ignore this message. ")
                 ),
                 rx.modal_footer(
                     rx.hstack(
