@@ -39,6 +39,26 @@ def navbar():
                 # ),
                 rx.menu(
                     rx.menu_button(
+                        "Language",
+                            bg=styles.accent_color,
+                            px="4",
+                            py="2",
+                            h="auto",
+                            rounded="lg"
+                    ),
+                    rx.menu_list(
+                        rx.menu_item("English",
+                                     on_click=[State.english_chat]),
+                        rx.menu_divider(),
+                        rx.menu_item("Japanese",
+                                     on_click=[State.japanese_chat]),
+                        rx.menu_divider(),
+                        rx.menu_item("French",
+                                     on_click=[State.french_chat]),
+                    ),
+                ),
+                rx.menu(
+                    rx.menu_button(
                         rx.avatar(name="User", size="md"),
                         rx.box(),
                     ),
@@ -50,7 +70,7 @@ def navbar():
                                      on_click=[State.enter_user_msg_number, State.logout]),
                     ),
                 ),
-                spacing="8",
+                spacing="3",
             ),
             justify="space-between",
         ),

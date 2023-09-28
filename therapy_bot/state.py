@@ -85,7 +85,7 @@ class State(rx.State):
     processing: bool = False
 
     # The name of the new chat.
-    new_chat_name: str = ""
+    new_chat_name: str = "Consultation with Dr. Yumi"
 
     # Whether the drawer is open.
     drawer_open: bool = False
@@ -99,19 +99,35 @@ class State(rx.State):
     # Alert
     show: bool = False
 
-    def name_master_answer(self):
-        if self.user is not None:
-            self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
-                space together. To start, can you share with me what brought you here today? \
-                What are your needs or concerns that you'd like to address?"
-
     def create_chat(self):
         """Create a new chat."""
         # Insert a default question.
+        del self.chats[self.current_chat]
         self.chats[self.new_chat_name] = [
             QA(question=master_prompt, answer=self.master_answer)
         ]
         self.current_chat = self.new_chat_name
+
+    def english_chat(self):
+        self.new_chat_name = "Consultation with Dr. Yumi"
+        self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+                            space together. To start, can you share with me what brought you here today? \
+                            What are your needs or concerns that you'd like to address?"      
+        self.create_chat()
+
+    def japanese_chat(self):
+        self.new_chat_name = "由美先生との相談"
+        self.master_answer = f"こんにちは {self.user.username}さん、お会いできてうれしいです。私はユミ博士と申します。私たちとともに支え合い、安全な場を築けることを願っています。\
+                              まず、今日こちらに来られた理由を教えていただけますか？対処したいニーズや懸念点はありますか？"       
+        self.create_chat()
+
+        
+    def french_chat(self):
+        self.new_chat_name = "Consultation avec Dr. Yumi"
+        self.master_answer = f"Bonjour {self.user.username}, c'est un plaisir de vous rencontrer. Je suis le Dr. Yumi. J'espère que nous pourrons créer ensemble\
+                             un espace bienveillant et sécurisé. Pour commencer, pouvez-vous me dire ce qui vous amène ici aujourd'hui ? Quels sont vos besoins ou \
+                             préoccupations que vous souhaitez aborder ?"
+        self.create_chat()
 
     def toggle_modal(self):
         """Toggle the new chat modal."""
@@ -120,20 +136,6 @@ class State(rx.State):
     def toggle_drawer(self):
         """Toggle the drawer."""
         self.drawer_open = not self.drawer_open
-
-    def delete_chat(self):
-        """ Note: I have replaced this function in the model code, so that the current chat is
-            deleted and a new chat is created evertime user deletes chat.
-        """
-        """Delete the current chat."""
-        del self.chats[self.current_chat]
-        if len(self.chats) == 0:
-            self.chats = {
-                # Changes: self.current_chat was "new_chat"
-                self.current_chat: [QA(question=master_prompt, answer=self.master_answer)]
-            }
-        # self.current_chat = list(self.chats.keys())[0]
-        # self.toggle_drawer()
 
     def set_chat(self, chat_name: str):
         """Set the name of the current chat.
@@ -201,7 +203,6 @@ class State(rx.State):
         for item in session:
             if hasattr(item.choices[0].delta, "content"):        
                 answer_text = item.choices[0].delta.content.replace("\n", "<br/>")
-                answer_text = self.convert_links_to_html(answer_text)
                 self.chats[self.current_chat][-1].answer += answer_text
                 self.chats = self.chats
                 yield
@@ -248,7 +249,7 @@ class State(rx.State):
 
     def logout(self):
         """Log out a user."""
-        self.reset()
+        self.english_chat()
         return rx.redirect("/")
 
     def check_login(self):
@@ -299,7 +300,7 @@ class AuthState(State):
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
-            self.name_master_answer()
+            self.english_chat()
             return rx.redirect("/chat")
 
     def login(self):
@@ -318,7 +319,7 @@ class AuthState(State):
             
             if user and user.password == self.password:
                 self.user = user
-                self.name_master_answer()
+                self.english_chat()
                 return rx.redirect("/chat")
             else:
                 return rx.window_alert("Invalid username or password.")
