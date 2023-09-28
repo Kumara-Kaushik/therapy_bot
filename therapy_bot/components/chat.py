@@ -141,7 +141,7 @@ def action_bar() -> rx.Component:
                 width="100%",
             ),
             rx.text(
-                "ReflexGPT may return factually incorrect or misleading responses. Use discretion.",
+                "The AI Therapist may sometimes return factually incorrect responses. Use discretion.",
                 font_size="xs",
                 color="#fff6",
                 text_align="center",
