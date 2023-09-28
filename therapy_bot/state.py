@@ -2,6 +2,7 @@ import os
 
 import openai
 import reflex as rx
+import re
 
 ## Add login:
 from typing import Optional
@@ -277,8 +278,15 @@ class AuthState(State):
         with rx.session() as session:
             if self.password != self.confirm_password:
                 return rx.window_alert("Passwords do not match.")
+            
+            # Email validation using regex
+            email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            if not re.match(email_pattern, self.username):
+                return rx.window_alert("Please enter a valid email address.")
+            
             if session.exec(User.select.where(User.username == self.username)).first():
                 return rx.window_alert("Username already exists.")
+            
             self.user = User(username=self.username, password=self.password)
             session.add(self.user)
             session.expire_on_commit = False
