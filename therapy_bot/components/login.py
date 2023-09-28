@@ -9,7 +9,7 @@ def login():
     """The login page."""
     return auth_layout(
         rx.box(
-            rx.input(placeholder="Email ID", 
+            rx.input(placeholder="Username or Email ID", 
                      color="white",
                      on_blur=AuthState.set_username, mb=4),
             rx.input(

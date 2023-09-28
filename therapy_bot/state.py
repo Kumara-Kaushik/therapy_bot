@@ -62,7 +62,8 @@ class QA(rx.Base):
 class User(rx.Model, table=True):
     """A table of Users."""
 
-    username: str = Field()
+    username: Optional[str] = Field(default=None)
+    email: Optional[str] = Field(default=None)
     password: str = Field()
     message_count: int = Field(default=0)
 
@@ -270,24 +271,25 @@ class AuthState(State):
     """The authentication state for sign up and login page."""
 
     username: str
+    email: str
     password: str
     confirm_password: str
 
     def signup(self):
         """Sign up a user."""
         with rx.session() as session:
+            if session.exec(User.select.where(User.username == self.username)).first():
+                return rx.window_alert("Username already exists.")
+
+            # Email validation using regex
+            email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            if not re.match(email_pattern, self.email):
+                return rx.window_alert("Please enter a valid email address.")
+            
             if self.password != self.confirm_password:
                 return rx.window_alert("Passwords do not match.")
             
-            # Email validation using regex
-            email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-            if not re.match(email_pattern, self.username):
-                return rx.window_alert("Please enter a valid email address.")
-            
-            if session.exec(User.select.where(User.username == self.username)).first():
-                return rx.window_alert("Username already exists.")
-            
-            self.user = User(username=self.username, password=self.password)
+            self.user = User(username=self.username, email=self.email, password=self.password)
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
@@ -296,12 +298,21 @@ class AuthState(State):
     def login(self):
         """Log in a user."""
         with rx.session() as session:
-            user = session.exec(
-                User.select.where(User.username == self.username)
-            ).first()
+            # Email validation using regex
+            email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"            
+            if re.match(email_pattern, self.username):  # Check if input is an email
+                user = session.exec(
+                    User.select.where(User.email == self.username)
+                ).first()
+            else:  # If not an email, continue using it as a username
+                user = session.exec(
+                    User.select.where(User.username == self.username)
+                ).first()
+            
             if user and user.password == self.password:
                 self.user = user
                 return rx.redirect("/chat")
             else:
                 return rx.window_alert("Invalid username or password.")
+
             
