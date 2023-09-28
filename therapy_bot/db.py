@@ -11,6 +11,7 @@ class User(Base):
     username = Column(String(50))
     email = Column(String(100))
     password = Column(String(50))
+    message_count = Column(Integer)
     # ... add other fields if you have them
 
 DATABASE_URL = "sqlite:///reflex.db"  # Adjust the path as needed

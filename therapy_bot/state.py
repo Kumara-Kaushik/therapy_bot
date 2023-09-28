@@ -62,8 +62,8 @@ class QA(rx.Base):
 class User(rx.Model, table=True):
     """A table of Users."""
 
-    username: Optional[str] = Field(default=None)
-    email: Optional[str] = Field(default=None)
+    username: str = Field()
+    email: str = Field()
     password: str = Field()
     message_count: int = Field(default=0)
 
