@@ -1,7 +1,7 @@
 """Login page. Uses auth_layout to render UI shared with the sign up page."""
 import reflex as rx
 from therapy_bot.auth import auth_layout
-from therapy_bot.state import AuthState
+from therapy_bot.state import AuthState 
 from therapy_bot import styles
 
 
@@ -21,7 +21,7 @@ def login():
             ),
             rx.button(
                 "Log in",
-                on_click=AuthState.login,
+                on_click=[AuthState.login],
                 bg="blue.500",
                 color="white",
                 _hover={"bg": "blue.600"},

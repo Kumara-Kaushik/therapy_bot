@@ -47,10 +47,6 @@ master_prompt = """
                 # ->5e-NonjudgmentalAwareness->5f-EmotionRegulation)->6-DialecticalBehaviorTherapy(6a-Mindfulness->6b-DistressTolerance->6c-EmotionRegulation->6d-InterpersonalEffectiveness->6e-
                 # Validation->6f-SkillsGeneralization)
 
-master_answer = f"Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
-                space together. To start, can you share with me what brought you here today? \
-                What are your needs or concerns that you'd like to address?"
-
 
 class QA(rx.Base):
     """A question and answer pair."""
@@ -69,6 +65,10 @@ class User(rx.Model, table=True):
 
 class State(rx.State):
     """The app state."""
+
+    master_answer = f"Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+                space together. To start, can you share with me what brought you here today? \
+                What are your needs or concerns that you'd like to address?"
 
     # A dict from the chat name to the list of questions and answers.
     chats: dict[str, list[QA]] = {
@@ -99,11 +99,17 @@ class State(rx.State):
     # Alert
     show: bool = False
 
+    def name_master_answer(self):
+        if self.user is not None:
+            self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+                space together. To start, can you share with me what brought you here today? \
+                What are your needs or concerns that you'd like to address?"
+
     def create_chat(self):
         """Create a new chat."""
         # Insert a default question.
         self.chats[self.new_chat_name] = [
-            QA(question=master_prompt, answer=master_answer)
+            QA(question=master_prompt, answer=self.master_answer)
         ]
         self.current_chat = self.new_chat_name
 
@@ -124,7 +130,7 @@ class State(rx.State):
         if len(self.chats) == 0:
             self.chats = {
                 # Changes: self.current_chat was "new_chat"
-                self.current_chat: [QA(question=master_prompt, answer=master_answer)]
+                self.current_chat: [QA(question=master_prompt, answer=self.master_answer)]
             }
         # self.current_chat = list(self.chats.keys())[0]
         # self.toggle_drawer()
@@ -293,6 +299,7 @@ class AuthState(State):
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
+            self.name_master_answer()
             return rx.redirect("/chat")
 
     def login(self):
@@ -311,6 +318,7 @@ class AuthState(State):
             
             if user and user.password == self.password:
                 self.user = user
+                self.name_master_answer()
                 return rx.redirect("/chat")
             else:
                 return rx.window_alert("Invalid username or password.")
