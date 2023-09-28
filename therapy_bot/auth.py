@@ -39,11 +39,25 @@ def auth_layout(*args):
             color="#A9A9A9",
         ),
         *args,
-        rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;height:36px;' 
+        rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;font-size:14px;height:36px;' 
                              src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>""",
                 position="fixed",
                 left="1em",
-                bottom="1em",),
+                bottom="1em"),
+        rx.button(
+                    "Give Feedback",
+                    bg="#5535d4",
+                    box_shadow="md",
+                    px="4",
+                    py="2",
+                    h="40px",
+                    font_size="12px",
+                    on_click=[lambda: rx.redirect("https://discord.gg/aKyQEuRT")],
+                    right="1em",
+                    position="fixed",
+                    bottom="1.2em",
+                    rounded="full",          
+                    ),
         # rx.html("""<script type="text/javascript" 
         #                     src="https://platform-api.sharethis.com/js/sharethis.js#property=651552f9dbc58b001ae436bb&product=inline-share-buttons&source=platform" 
         #                     async="async"></script>"""),
