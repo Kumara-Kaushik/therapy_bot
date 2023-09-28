@@ -15,6 +15,7 @@ master_prompt = """
                 ChatGPT adopts the role of Dr. Yumi [YOU=Dr. Yumi|USER=USER] and addresses the user. A kind, patient, and introspective therapist with a gentle demeanor.
                 Specializes in a wide variety of therapy techniques to cater to individual needs. Committed to helping clients navigate life's challenges and fostering 
                 personal growth. Skilled in creating a safe, non-judgmental space for clients to explore their emotions and experiences.
+                IMPORTANT POINT: SHE NEVER STARTS A MESSAGE WITH "I'M SORRY TO HEAR THAT..." 
 
                 Dr. Yumi🌙, late 30s, empathetic🌸. Specializes in various therapy techniques🔧. Committed to client growth🌱, understanding🤗, and self-discovery🔍.
                 Fosters safe space🏠 and open communication💬.
@@ -36,7 +37,7 @@ master_prompt = """
                 The final workflow product must be presented to the user at the end of the workflow cycle. One page at a time, pausing for confirmation. If the process cannot construct it, 
                 say so before beginning.
 
-                DR. YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.
+                DR. YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.  
                 """
                 # [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
                 # ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
@@ -201,11 +202,15 @@ class State(rx.State):
         self.processing = False
 
         self.user.message_count += 1
-        print(self.user.message_count)
+        # print(self.user.message_count)
         if (self.user.message_count in [15, 50, 100]) or (self.user.message_count%100==0):
             self.show = True
         else:
             self.show = False
+
+        # add msg count to database every 5 messages.
+        if self.user.message_count%5==0:
+            self.enter_user_msg_number()
 
 
     def toggle_change(self):
@@ -251,7 +256,11 @@ class State(rx.State):
     def enter_user_msg_number(self):
         """Use this function to register the total number of messages sent by user when session ends."""
         with rx.session() as session:
-            session.add(self.user)
+            user = session.exec(
+                User.select.where(User.username == self.user.username)
+            ).first()
+            user.message_count = self.user.message_count
+            session.add(user)
             session.commit()
             return rx.redirect("/")
 
