@@ -31,11 +31,14 @@ def signup():
             ),
             rx.checkbox(
                 rx.span("I have read the ", 
-                              rx.link("terms and conditions", href="/terms", color="blue.500"),
-                             ),
+                        rx.link("terms and conditions ", href="/terms", color="blue.500"),
+                        "and the ",
+                        rx.link("privacy policies", href="/policy", color="blue.500"),
+                    ),
                 color="white",
                 mb=4,
                 on_change=AuthState.set_accept_terms,
+                # align_items="flex-start",
             ),
             rx.button(
                 "Sign up",
