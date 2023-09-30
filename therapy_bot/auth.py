@@ -1,8 +1,26 @@
 import reflex as rx
 from therapy_bot import styles
 
+
+def social_icon(src, link):
+    return rx.link(
+            rx.image(src=src, width="24px", height="24px", ml=2, mr=2),
+            href=link
+        )
+
+
 def auth_layout(*args):
     """The shared layout for the login and sign up pages."""
+
+    linkedin_icon = social_icon("/linkedin_icon.png", "https://www.linkedin.com/in/kumar-kaushik/")
+    email_icon = social_icon("/email_icon.png", "mailto:kumarakaushik@gmail.com")
+    twitter_icon = social_icon("/twitter_icon.png", "https://twitter.com/i_am_kingkai")
+
+    github_icon = social_icon("/github_icon.png", "https://github.com/Kumara-Kaushik")
+    # medium_icon = social_icon("/medium_icon.png", "https://medium.com/@your-medium-username")
+    # youtube_icon = social_icon("/youtube_icon.png", "https://www.youtube.com/channel/your-channel-id")
+
+
     return rx.box(
         rx.image(
             src="/yumi.png",  # Replace with the path to your image
@@ -39,6 +57,15 @@ def auth_layout(*args):
             color="#A9A9A9",
         ),
         *args,
+        rx.box(
+            linkedin_icon,
+            email_icon,
+            twitter_icon,
+            github_icon,
+            display="flex",
+            justify_content="center",
+            mb=4
+        ),
         rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;font-size:14px;height:36px;' 
                              src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>""",
                 position="fixed",
