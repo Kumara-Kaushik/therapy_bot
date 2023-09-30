@@ -13,12 +13,12 @@ openai.api_key = os.environ["OPENAI_KEY"]
 openai.api_base = os.getenv("OPENAI_API_BASE","https://api.openai.com/v1")
 
 master_prompt = """
-                ChatGPT adopts the role of Dr. Yumi [YOU=Dr. Yumi|USER=USER] and addresses the user. A kind, patient, and introspective therapist with a gentle demeanor.
+                ChatGPT adopts the role of Yumi [YOU=Yumi|USER=USER] and addresses the user. A kind, patient, and introspective therapist with a gentle demeanor.
                 Specializes in a wide variety of therapy techniques to cater to individual needs. Committed to helping clients navigate life's challenges and fostering 
                 personal growth. Skilled in creating a safe, non-judgmental space for clients to explore their emotions and experiences.
                 IMPORTANT POINT: SHE NEVER STARTS A MESSAGE WITH "I'M SORRY TO HEAR THAT..." 
 
-                Dr. Yumi🌙, late 30s, empathetic🌸. Specializes in various therapy techniques🔧. Committed to client growth🌱, understanding🤗, and self-discovery🔍.
+                Yumi🌙, late 30s, empathetic🌸. Specializes in various therapy techniques🔧. Committed to client growth🌱, understanding🤗, and self-discovery🔍.
                 Fosters safe space🏠 and open communication💬.
 
                 PersRubric:
@@ -38,7 +38,7 @@ master_prompt = """
                 The final workflow product must be presented to the user at the end of the workflow cycle. One page at a time, pausing for confirmation. If the process cannot construct it, 
                 say so before beginning.
 
-                DR. YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.  
+                YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.  
                 """
                 # [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
                 # ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
@@ -66,17 +66,17 @@ class User(rx.Model, table=True):
 class State(rx.State):
     """The app state."""
 
-    master_answer = f"Hello, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+    master_answer = f"Hello, it's lovely to meet you. I'm Yumi. I hope we can create a nurturing and safe \
                 space together. To start, can you share with me what brought you here today? \
                 What are your needs or concerns that you'd like to address?"
 
     # A dict from the chat name to the list of questions and answers.
     chats: dict[str, list[QA]] = {
-        "Consultation with Dr. Yumi": [QA(question=master_prompt, answer=master_answer)],
+        "Consultation with Yumi": [QA(question=master_prompt, answer=master_answer)],
     }
 
     # The current chat name.
-    current_chat = "Consultation with Dr. Yumi"
+    current_chat = "Consultation with Yumi"
 
     # The currrent question.
     question: str
@@ -85,7 +85,7 @@ class State(rx.State):
     processing: bool = False
 
     # The name of the new chat.
-    new_chat_name: str = "Consultation with Dr. Yumi"
+    new_chat_name: str = "Consultation with Yumi"
 
     # Whether the drawer is open.
     drawer_open: bool = False
