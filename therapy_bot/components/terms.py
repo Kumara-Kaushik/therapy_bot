@@ -73,9 +73,9 @@ def terms_layout():
                 <p>1. The Service offers a refund policy for certain circumstances. You may be eligible for a refund if you encounter a technical issue with the services that prevents you from utilizing them as intended. Eligibility for a refund will be determined in its sole discretion.</p>
 
                 <h2 style="font-size: 1.5rem; margin-top: 1rem;">Contact Us</h2>
-                <p>1. If you have any questions about these Terms, please contact us at <a href="mailto:kumarakaushik@gmail.com">kumarakaushik@gmail.com</a>.</p></br></br>
+                <p>1. If you have any questions about these Terms, please contact us at <a href="mailto:kumarakaushik@gmail.com">kumarakaushik@gmail.com</a>.</p></br>
                     
-                <p>By using YumiSensei.Online, you acknowledge that you have read, understood, and agreed to the terms of this Privacy Policy.</p>
+                <p>By using YumiSensei.Online, you acknowledge that you have read, understood, and agreed to the terms of this Terms and Conditions of use.</p>
 
             """),  # Include your actual terms here.
             display="flex",
@@ -187,7 +187,7 @@ def privacy_layout():
                 <p>1 YumiSensei.Online reserves the right to modify or update this Privacy Policy at any time. Any changes will be effective immediately upon posting the revised Privacy Policy on the Website. Your continued use of the Website following the posting of any changes constitutes your acceptance of such changes.</p>
 
                 <h2 style="font-size: 1.5rem; margin-top: 1rem;"> Contact Us</h3>
-                <p>1 If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at kumarakaushik@gmail.com.</p></br></br>
+                <p>1 If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at kumarakaushik@gmail.com.</p></br>
 
                 <p>By using YumiSensei.Online, you acknowledge that you have read, understood, and agreed to the terms of this Privacy Policy.</p>
 
