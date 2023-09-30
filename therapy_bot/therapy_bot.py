@@ -13,7 +13,7 @@ def index() -> rx.Component:
 
 # Add state and page to the app.
 app = rx.App(state=State, style=styles.base_style)
-app.add_page(index, title="Login", description="Chat with Dr.Yumi")
-app.add_page(signup, title="Signup", description="Chat with Dr.Yumi")
-app.add_page(chat, title="Chat with Dr.Yumi", on_load=State.check_login())
+app.add_page(index, title="Login", description="Chat with Yumi")
+app.add_page(signup, title="Signup", description="Chat with Yumi")
+app.add_page(chat, title="Chat with Yumi", on_load=State.check_login())
 app.compile()

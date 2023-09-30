@@ -109,22 +109,22 @@ class State(rx.State):
         self.current_chat = self.new_chat_name
 
     def english_chat(self):
-        self.new_chat_name = "Consultation with Dr. Yumi"
-        self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Dr. Yumi. I hope we can create a nurturing and safe \
+        self.new_chat_name = "Chat with Yumi"
+        self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Yumi. I hope we can create a nurturing and safe \
                             space together. To start, can you share with me what brought you here today? \
                             What are your needs or concerns that you'd like to address?"      
         self.create_chat()
 
     def japanese_chat(self):
-        self.new_chat_name = "由美先生との相談"
-        self.master_answer = f"こんにちは {self.user.username}さん、お会いできてうれしいです。私はユミ博士と申します。私たちとともに支え合い、安全な場を築けることを願っています。\
+        self.new_chat_name = "ユミとのチャット"
+        self.master_answer = f"こんにちは {self.user.username}さん、お会いできてうれしいです。私はユミと申します。私たちとともに支え合い、安全な場を築けることを願っています。\
                               まず、今日こちらに来られた理由を教えていただけますか？対処したいニーズや懸念点はありますか？"       
         self.create_chat()
 
         
     def french_chat(self):
-        self.new_chat_name = "Consultation avec Dr. Yumi"
-        self.master_answer = f"Bonjour {self.user.username}, c'est un plaisir de vous rencontrer. Je suis le Dr. Yumi. J'espère que nous pourrons créer ensemble\
+        self.new_chat_name = "Chat avec Yumi"
+        self.master_answer = f"Bonjour {self.user.username}, c'est un plaisir de vous rencontrer. Je suis Yumi. J'espère que nous pourrons créer ensemble\
                              un espace bienveillant et sécurisé. Pour commencer, pouvez-vous me dire ce qui vous amène ici aujourd'hui ? Quels sont vos besoins ou \
                              préoccupations que vous souhaitez aborder ?"
         self.create_chat()

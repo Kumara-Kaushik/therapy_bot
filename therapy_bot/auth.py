@@ -12,7 +12,7 @@ def auth_layout(*args):
             mb=4,  # Optional: Margin-bottom for spacing between the image and the heading
         ),
         rx.heading(
-            rx.span("Hi! I'm Dr. Yumi!"),
+            rx.span("Hi! I'm Yumi!"),
             display="flex",
             size="2xl",
             # color=styles.text_light_color,
@@ -24,7 +24,7 @@ def auth_layout(*args):
         ),
         rx.text(
             rx.span("An compassionate AI therapist, made with ❤️ by Kai - An AI Architect and \
-                     passionate suicide hotline volunteer."),
+                     passionate mental health helpline volunteer."),
             display="flex",
             size="sm",
             color=styles.text_light_color,
