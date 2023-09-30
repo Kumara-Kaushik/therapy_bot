@@ -3,7 +3,7 @@
 import reflex as rx
 
 from therapy_bot import styles
-from therapy_bot.components import login, signup, chat
+from therapy_bot.components import login, signup, chat, terms_layout
 from therapy_bot.state import State
 
 def index() -> rx.Component:
@@ -15,5 +15,6 @@ def index() -> rx.Component:
 app = rx.App(state=State, style=styles.base_style)
 app.add_page(index, title="Login", description="Chat with Yumi")
 app.add_page(signup, title="Signup", description="Chat with Yumi")
+app.add_page(terms_layout, route="/terms",title="Terms and Conditions", description="Chat with Yumi")
 app.add_page(chat, title="Chat with Yumi", on_load=State.check_login())
 app.compile()

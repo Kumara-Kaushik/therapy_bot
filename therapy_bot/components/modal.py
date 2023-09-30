@@ -117,3 +117,33 @@ def modal_alert() -> rx.Component:
         ),
         is_open=State.show,
     )
+
+
+# def modal_signup_alert() -> rx.Component:
+#     return rx.modal(
+#             rx.modal_overlay(
+#                 rx.modal_content(
+#                     rx.modal_header(
+#                         rx.text("Congratulations!")
+#                     ),
+#                     rx.modal_body(
+#                         rx.html("You have successfully signed up!</br></br>Login to chat with Yumi")
+#                     ),
+#                     rx.modal_footer(
+#                         rx.button(
+#                             "Close", 
+#                             bg="#5535d4",
+#                             box_shadow="md",
+#                             px="4",
+#                             py="2",
+#                             h="auto",
+#                             _hover={"bg": "#4c2db3"},
+#                             on_click=State.signup_change
+#                         )
+#                     ),
+#                     bg="#222",
+#                     color="#fff",
+#                 ),
+#             ),
+#             is_open=State.signup_show,
+#         )

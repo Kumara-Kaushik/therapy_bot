@@ -99,6 +99,15 @@ class State(rx.State):
     # Alert
     show: bool = False
 
+    # accept terms
+    accept_terms: bool = False
+
+    # accept terms
+    accept_terms_2: bool = False
+
+    # signup model state
+    # signup_show: bool = False
+
     def create_chat(self):
         """Create a new chat."""
         # Insert a default question.
@@ -132,6 +141,9 @@ class State(rx.State):
     def toggle_modal(self):
         """Toggle the new chat modal."""
         self.modal_open = not self.modal_open
+
+    # def signup_change(self):
+    #     self.signup_show = not (self.signup_show)
 
     def toggle_drawer(self):
         """Toggle the drawer."""
@@ -225,6 +237,12 @@ class State(rx.State):
     def toggle_change(self):
         self.show = not (self.show)
 
+    def toggle_terms(self):
+        self.accept_terms = not (self.accept_terms)
+
+    def toggle_terms_2(self):
+        self.accept_terms_2 = not (self.accept_terms_2)
+
     def get_user_message(self, msg):
         return {"role": "user", "content": msg}
     
@@ -296,12 +314,17 @@ class AuthState(State):
             if self.password != self.confirm_password:
                 return rx.window_alert("Passwords do not match.")
             
+            if not self.accept_terms:
+                return rx.window_alert("Please read and accept the terms and conditions.")
+            
             self.user = User(username=self.username, email=self.email, password=self.password)
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
             self.english_chat()
-            return rx.redirect("/chat")
+            self.toggle_terms()
+            return[rx.window_alert("Congratulations! You have successfully signed up! Login to chat with Yumi."), rx.redirect("/")]
+            # return rx.redirect("/")
 
     def login(self):
         """Log in a user."""

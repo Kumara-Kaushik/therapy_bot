@@ -29,9 +29,17 @@ def signup():
                 on_blur=AuthState.set_confirm_password,
                 mb=4,
             ),
+            rx.checkbox(
+                rx.span("I have read the ", 
+                              rx.link("terms and conditions", href="/terms", color="blue.500"),
+                             ),
+                color="white",
+                mb=4,
+                on_change=AuthState.set_accept_terms,
+            ),
             rx.button(
                 "Sign up",
-                on_click=AuthState.signup,
+                on_click=[AuthState.signup],
                 bg="blue.500",
                 color="white",
                 _hover={"bg": "blue.600"},
