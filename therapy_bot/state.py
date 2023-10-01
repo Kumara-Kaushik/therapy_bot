@@ -314,15 +314,15 @@ class AuthState(State):
             if self.password != self.confirm_password:
                 return rx.window_alert("Passwords do not match.")
             
-            if not self.accept_terms:
-                return rx.window_alert("Please read and accept the terms and conditions.")
+            # if not self.accept_terms:
+            #     return rx.window_alert("Please read and accept the terms and conditions.")
             
             self.user = User(username=self.username, email=self.email, password=self.password)
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
             self.english_chat()
-            self.toggle_terms()
+            # self.toggle_terms()
             return[rx.window_alert("Congratulations! You have successfully signed up! Login to chat with Yumi."), rx.redirect("/")]
             # return rx.redirect("/")
 
