@@ -224,13 +224,13 @@ class State(rx.State):
 
         self.user.message_count += 1
         # print(self.user.message_count)
-        if (self.user.message_count in [15, 50, 100]) or (self.user.message_count%100==0):
+        if (self.user.message_count in [5, 50, 100]) or (self.user.message_count%100==0):
             self.show = True
         else:
             self.show = False
 
         # add msg count to database every 5 messages.
-        if self.user.message_count%5==0:
+        if self.user.message_count%1==0:
             self.enter_user_msg_number()
 
 
