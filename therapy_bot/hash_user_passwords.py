@@ -1,14 +1,14 @@
 import bcrypt
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'User'
     
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
     username = Column(String)
     email = Column(String)
     password = Column(String)
@@ -16,7 +16,7 @@ class User(Base):
     is_password_hashed = Column(Boolean, default=False)
 
 # Your database URL
-DATABASE_URL = "your_database_url_here"
+DATABASE_URL = "sqlite:///reflex.db"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
