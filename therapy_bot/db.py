@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Sequence
+from sqlalchemy import create_engine, Column, Integer, String, Sequence, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -11,7 +11,8 @@ class User(Base):
     username = Column(String(50))
     email = Column(String(100))
     password = Column(String(50))
-    message_count = Column(Integer)
+    message_count = Column(Integer, default=0)
+    is_password_hashed = Column(Boolean, default=False)
     # ... add other fields if you have them
 
 DATABASE_URL = "sqlite:///reflex.db"  # Adjust the path as needed
@@ -24,7 +25,7 @@ def print_all_users():
     with SessionLocal() as session:
         users = session.query(User).all()
         for user in users:
-            print(user.id, user.username, user.email, user.password, user.message_count)  # Adjust this based on the fields you have
+            print(user.id, user.username, user.email, user.password, user.message_count, user.is_password_hashed)  # Adjust this based on the fields you have
 
 if __name__ == "__main__":
     print_all_users()

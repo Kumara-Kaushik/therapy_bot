@@ -3,6 +3,8 @@ import os
 import openai
 import reflex as rx
 import re
+import bcrypt
+
 
 ## Add login:
 from typing import Optional
@@ -62,6 +64,7 @@ class User(rx.Model, table=True):
     email: str = Field()
     password: str = Field()
     message_count: int = Field(default=0)
+    is_password_hashed: bool = Field(default=False)
 
 class State(rx.State):
     """The app state."""
@@ -317,7 +320,15 @@ class AuthState(State):
             # if not self.accept_terms:
             #     return rx.window_alert("Please read and accept the terms and conditions.")
             
-            self.user = User(username=self.username, email=self.email, password=self.password)
+            # Hash the password before storing it
+            hashed_password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt())
+
+            self.user = User(
+                username=self.username, 
+                email=self.email, 
+                password=hashed_password.decode('utf-8'), 
+                is_password_hashed=True
+            )
             session.add(self.user)
             session.expire_on_commit = False
             session.commit()
@@ -340,11 +351,44 @@ class AuthState(State):
                     User.select.where(User.username == self.username)
                 ).first()
             
-            if user and user.password == self.password:
-                self.user = user
-                self.english_chat()
-                return rx.redirect("/chat")
-            else:
-                return rx.window_alert("Invalid username or password.")
+            # Verify password based on is_password_hashed field
+            if user:
+                if user.is_password_hashed:
+                    password_matches = bcrypt.checkpw(self.password.encode('utf-8'), user.password.encode('utf-8'))
+                else:
+                    password_matches = self.password == user.password
+                    # If the plain password matches, hash it and store the hashed version
+                    if password_matches:
+                        hashed_password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt())
+                        user.password = hashed_password.decode('utf-8')
+                        user.is_password_hashed = True
+                        session.commit()
+
+                if password_matches:
+                    self.user = user
+                    self.english_chat()
+                    return rx.redirect("/chat")
+            
+            return rx.window_alert("Invalid username or password.")
 
             
+    def delete_user(self):
+        """Delete the current user's profile."""
+        with rx.session() as session:
+            # Assuming the user object is set in the state during login
+            if self.user:
+                session.delete(self.user)
+                session.commit()
+                
+                # Reset user state (optional based on your application's needs)
+                self.user = None
+                self.username = ''
+                self.email = ''
+                self.password = ''
+                self.confirm_password = ''
+
+                # Notify the user and redirect
+                rx.window_alert("Your profile has been deleted.")
+                return rx.redirect("/")
+            else:
+                return rx.window_alert("User not found or not logged in.")
