@@ -4,6 +4,13 @@ from therapy_bot import styles
 from therapy_bot.components import loading_icon, navbar, modal, modal_alert
 from therapy_bot.state import QA, State
 
+loading_effect = rx.html('''
+<div class="three-dots-loading">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+''')
 
 def full_message(qa: QA) -> rx.Component:
     """A single question/answer message."""
@@ -13,41 +20,57 @@ def full_message(qa: QA) -> rx.Component:
 
     return rx.box(
         # User's message (question)
-        rx.hstack(
-            rx.box(
-                rx.text(
-                    rx.html(qa.question),
-                    bg=styles.border_color,
-                    shadow=styles.shadow_light,
-                    **styles.message_style,
+        rx.box(
+            rx.hstack(
+                rx.box(
+                    rx.text(
+                        rx.html(qa.question),
+                        bg=styles.border_color,
+                        shadow=styles.shadow_light,
+                        **styles.message_style,
+                    ),
+                    margin_top="1em",
                 ),
-                margin_top="1em",
+                rx.avatar(name="User", border_radius="full", 
+                          width="40px", height="40px",
+                          shadow= styles.shadow,
+                          color= styles.text_light_color,
+                          bg=  styles.border_color,),
+                align_items="flex-end",
+                justify_content="flex-end",
             ),
-            rx.avatar(name="User", border_radius="full", 
-                      width="40px", height="40px",
-                      shadow= styles.shadow,
-                      color= styles.text_light_color,
-                      bg=  styles.border_color,),
-            align_items="flex-end",
-            justify_content="flex-end",
+            ml="5%",  # Left margin for user's message
         ),
         # Bot's message (answer)
-        rx.hstack(
-            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
-            rx.box(
-                rx.text(
-                    rx.html(qa.answer),
-                    bg=styles.accent_color,
-                    shadow=styles.shadow_light,
-                    **styles.message_style,
+        rx.box(
+            rx.hstack(
+                rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
+                rx.box(
+                    rx.cond(
+                    qa.answer == "...",
+                    rx.box(
+                        loading_effect,
+                        bg=styles.accent_color,
+                        shadow=styles.shadow_light,
+                        **styles.message_style,
+                    ),
+                    rx.text(
+                        rx.html(qa.answer),
+                        bg=styles.accent_color,
+                        shadow=styles.shadow_light,
+                        **styles.message_style,
+                    )
                 ),
-                text_align="left",
-                padding_top="1em",
+                    text_align="left",
+                    padding_top="1em",
+                ),
+                align_items="flex-end",
             ),
-            align_items="flex-end",
+            mr="5%",  # Right margin for bot's message
         ),
         width="100%",
     )
+
 
 
 def message(qa: QA) -> rx.Component:
@@ -61,23 +84,31 @@ def message(qa: QA) -> rx.Component:
     """
     bot_icon = "/yumi.png"
     return rx.box(
-        # Bot's message (answer)
-        rx.hstack(
-            rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
-            rx.box(
-                rx.text(
-                    rx.html(qa.answer),
-                    bg=styles.accent_color,
-                    shadow=styles.shadow_light,
-                    **styles.message_style,
+            rx.hstack(
+                rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
+                rx.box(
+                    rx.cond(
+                    qa.answer == "...",
+                    rx.box(
+                        loading_effect,
+                        bg=styles.accent_color,
+                        shadow=styles.shadow_light,
+                        **styles.message_style,
+                    ),
+                    rx.text(
+                        rx.html(qa.answer),
+                        bg=styles.accent_color,
+                        shadow=styles.shadow_light,
+                        **styles.message_style,
+                    )
                 ),
-                text_align="left",
-                padding_top="1em",
+                    text_align="left",
+                    padding_top="1em",
+                ),
+                align_items="flex-end",
             ),
-            align_items="flex-end",
-        ),
-        width="100%",
-    )
+            mr="5%",  # Right margin for bot's message
+        )
 
 def chat_layout() -> rx.Component:
     """List all the messages in a single conversation."""

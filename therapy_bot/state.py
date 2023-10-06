@@ -4,6 +4,7 @@ import openai
 import reflex as rx
 import re
 import bcrypt
+import time
 
 
 ## Add login:
@@ -175,59 +176,51 @@ class State(rx.State):
         
         converted_text = re.sub(pattern, r"<a href='\2' target='_blank'>\1</a>", text)
         return converted_text
-
+    
 
     async def process_question(self, form_data: dict[str, str]):
-        """Get the response from the API.
-
-        Args:
-            form_data: A dict with the current question.
-        """
-        # Check if we have already asked the last question or if the question is empty
         self.question = form_data["question"]
+        
+        # Check if the user has already asked the same question or if the question is empty
         if (
             self.chats[self.current_chat][-1].question == self.question
             or self.question == ""
         ):
             return
 
-        # Set the processing flag to true and yield.
-        self.processing = True
-        yield
-
-        # Start a new session to answer the question.
-        session = openai.ChatCompletion.create(
-            model=os.getenv("OPENAI_MODEL","gpt-3.5-turbo"),
-            messages=self.api_message(),
-            # max_tokens=50,
-            # n=1,
-            stop=None,
-            temperature=0.7,
-            stream=True,  # Enable streaming
-        )
-        qa = QA(question=self.question, answer="")
+        # Step 1: Immediately add the user's question to the chat
+        qa = QA(question=self.question, answer="...")  # ... as a placeholder indicating the bot is "typing"
         self.chats[self.current_chat].append(qa)
+        yield  # Yield to update the UI
 
-        # Stream the results, yielding after every word.
-        for item in session:
-            if hasattr(item.choices[0].delta, "content"):        
-                answer_text = item.choices[0].delta.content.replace("\n", "<br/>")
-                self.chats[self.current_chat][-1].answer += answer_text
-                self.chats = self.chats
-                yield
+        # Step 2: Simulate a brief typing delay
+        time.sleep(1)  # Adjust this value to increase or decrease the "typing" delay
 
-        # Toggle the processing flag.
+        # Step 3: Fetch bot's reply (non-streamed)
+        self.processing = True
+        session = openai.ChatCompletion.create(
+            model=os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
+            messages=self.api_message(),
+            temperature=0.7,
+            stream=False,  # Ensure it's not streamed
+        )
+
+        # print(session)
+        answer_text = session['choices'][0]['message']['content'].replace("\n", "<br/>")
+        self.chats[self.current_chat][-1].answer = answer_text
         self.processing = False
+        yield  # Yield to update the UI with the bot's reply
 
+        # The remaining logic for updating user's message count and other operations
         self.user.message_count += 1
-        # print(self.user.message_count)
-        if (self.user.message_count in [5, 50, 100]) or (self.user.message_count%100==0):
+
+        if (self.user.message_count in [5, 50, 100]) or (self.user.message_count % 100 == 0):
             self.show = True
         else:
             self.show = False
 
-        # add msg count to database every 5 messages.
-        if self.user.message_count%1==0:
+        # Add the message count to the database every 5 messages
+        if self.user.message_count % 5 == 0:  # Adjusted from 1 to 5 as per the comment
             self.enter_user_msg_number()
 
 

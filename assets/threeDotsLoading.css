@@ -1,0 +1,34 @@
+/* assets/threeDotsLoading.css */
+@keyframes dotPulse {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1); }
+    100% { transform: scale(0.8); }
+}
+
+.three-dots-loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5535d4; /* Using your accent_color for the background */
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.dot {
+    background-color: #fff; /* Using your text_light_color for the dots */
+    border-radius: 50%;
+    width: 0.5em;
+    height: 0.5em;
+    margin: 0 0.25em;
+    animation: dotPulse 1s infinite;
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.5s;
+}

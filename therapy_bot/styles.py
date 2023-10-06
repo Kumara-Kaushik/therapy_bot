@@ -15,7 +15,15 @@ text_light_color = "#fff"
 shadow_light = "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;"
 shadow = "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;"
 
-message_style = dict(display="inline-block", p="4", border_radius="xl", max_w="30em")
+message_style = dict(
+    display="inline-block", 
+    pt="2",  # Adjust this value for top padding
+    pb="2",  # Adjust this value for bottom padding
+    pr="4",  # Keeping original right padding
+    pl="4",  # Keeping original left padding
+    border_radius="xl", 
+    max_w="30em"
+)
 
 input_style = dict(
     bg=bg_medium_color,
