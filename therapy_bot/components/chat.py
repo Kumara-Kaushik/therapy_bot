@@ -148,13 +148,15 @@ def action_bar() -> rx.Component:
             rx.form(
                 rx.form_control(
                     rx.hstack(
-                        rx.input(
+                        rx.text_area(
                             placeholder="Type something...",
-                            id="question",
+                            value=State.question,
+                            on_change=State.set_question,
                             _placeholder={"color": "#fffa"},
                             _hover={"border_color": styles.accent_color},
-                            style=styles.input_style,
+                            style={**styles.input_style, "padding": "0.5em"},
                             overflow="scroll",
+                            min_height="1em",
                         ),
                         rx.button(
                             rx.cond(
@@ -166,6 +168,7 @@ def action_bar() -> rx.Component:
                             _hover={"bg": styles.accent_color},
                             style=styles.input_style,
                         ),
+                        align_items="center"
                     ),
                     is_disabled=State.processing,
                 ),
@@ -173,7 +176,7 @@ def action_bar() -> rx.Component:
                 width="100%",
             ),
             rx.text(
-                "The AI Therapist may sometimes return factually incorrect responses. Use discretion.",
+                "Yumi is not a certified medical professional and may sometimes return factually incorrect responses. Use discretion.",
                 font_size="xs",
                 color="#fff6",
                 text_align="center",
@@ -194,4 +197,3 @@ def action_bar() -> rx.Component:
         padding_left="1em",
         padding_right="1em"
     )
-

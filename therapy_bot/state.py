@@ -108,6 +108,9 @@ class State(rx.State):
     # accept terms
     accept_terms_2: bool = False
 
+    # input_text state
+    text: str = ""
+
     # signup model state
     # signup_show: bool = False
 
@@ -220,7 +223,7 @@ class State(rx.State):
             self.show = False
 
         # Add the message count to the database every 5 messages
-        if self.user.message_count % 5 == 0:  # Adjusted from 1 to 5 as per the comment
+        if self.user.message_count % 1 == 0:  # Adjusted from 1 to 5 as per the comment
             self.enter_user_msg_number()
 
 
