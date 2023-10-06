@@ -108,9 +108,6 @@ class State(rx.State):
     # accept terms
     accept_terms_2: bool = False
 
-    # input_text state
-    text: str = ""
-
     # signup model state
     # signup_show: bool = False
 

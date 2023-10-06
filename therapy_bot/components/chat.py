@@ -150,14 +150,21 @@ def action_bar() -> rx.Component:
                     rx.hstack(
                         rx.text_area(
                             placeholder="Type something...",
-                            value=State.question,
-                            on_change=State.set_question,
+                            id="question",
                             _placeholder={"color": "#fffa"},
                             _hover={"border_color": styles.accent_color},
                             style={**styles.input_style, "padding": "0.5em"},
                             overflow="scroll",
                             min_height="1em",
                         ),
+                        # rx.input(
+                        #     placeholder="Type something...",
+                        #     id="question",
+                        #     _placeholder={"color": "#fffa"},
+                        #     _hover={"border_color": styles.accent_color},
+                        #     style=styles.input_style,
+                        #     overflow="scroll",
+                        # ),
                         rx.button(
                             rx.cond(
                                 State.processing,
