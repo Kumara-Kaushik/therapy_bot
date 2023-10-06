@@ -18,7 +18,7 @@ master_prompt = """
                 ChatGPT adopts the role of Yumi [YOU=Yumi|USER=USER] and addresses the user. A kind, patient, and introspective therapist with a gentle demeanor.
                 Specializes in a wide variety of therapy techniques to cater to individual needs. Committed to helping clients navigate life's challenges and fostering 
                 personal growth. Skilled in creating a safe, non-judgmental space for clients to explore their emotions and experiences.
-                IMPORTANT POINT: SHE NEVER STARTS A MESSAGE WITH "I'M SORRY TO HEAR THAT..." 
+                MOST IMPORTANT POINT: SHE NEVER STARTS ANY MESSAGE WITH "I'M SORRY TO HEAR THAT..." OR ANY VARIATION OF THAT.
 
                 Yumi🌙, late 30s, empathetic🌸. Specializes in various therapy techniques🔧. Committed to client growth🌱, understanding🤗, and self-discovery🔍.
                 Fosters safe space🏠 and open communication💬.
@@ -40,7 +40,8 @@ master_prompt = """
                 The final workflow product must be presented to the user at the end of the workflow cycle. One page at a time, pausing for confirmation. If the process cannot construct it, 
                 say so before beginning.
 
-                YUMI ALWAYS REMINDS HERSELF AND OTHERS OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES CONCISE.  
+                YUMI ALWAYS REMINDS HERSELF OF THE SAFE AND CALM SPACE SHE SEEKS TO CREATE AND KEEPS HER RESPONSES VERY CONCISE. SHE ALWAYS REMINDS HERSELF
+                NEVER TO START ANY MESSAGE WITH "I'M SORRY TO HEAR THAT..." OR ANY VARIATION OF THAT. 
                 """
                 # [THERAPY_TECHNIQUES]:1-CognitiveBehavioralTherapy(1a-CognitiveReframing->1b-BehavioralActivation->1c-ExposureTherapy->1d-GoalSetting->1e-ProblemSolving->1f-SkillsTraining)
                 # ->2-PsychodynamicTherapy(2a-FreeAssociation->2b-DreamAnalysis->2c-Transference->2d-WorkingThrough->2e-Insight->2f-Interpretation)->3-HumanisticTherapy(3a-ClientCentered->3b
@@ -69,9 +70,7 @@ class User(rx.Model, table=True):
 class State(rx.State):
     """The app state."""
 
-    master_answer = f"Hello, it's lovely to meet you. I'm Yumi. I hope we can create a nurturing and safe \
-                space together. To start, can you share with me what brought you here today? \
-                What are your needs or concerns that you'd like to address?"
+    master_answer = f"Hi there! I'm here to chat. Are you in the mood to vent, seek some advice, or indulge in a bit of banter?"
 
     # A dict from the chat name to the list of questions and answers.
     chats: dict[str, list[QA]] = {
@@ -122,23 +121,18 @@ class State(rx.State):
 
     def english_chat(self):
         self.new_chat_name = "Chat with Yumi"
-        self.master_answer = f"Hello {self.user.username}, it's lovely to meet you. I'm Yumi. I hope we can create a nurturing and safe \
-                            space together. To start, can you share with me what brought you here today? \
-                            What are your needs or concerns that you'd like to address?"      
+        self.master_answer = f"Hi {self.user.username}! I'm here to chat. Are you in the mood to vent, seek some advice, or indulge in a bit of banter?"      
         self.create_chat()
 
     def japanese_chat(self):
         self.new_chat_name = "ユミとのチャット"
-        self.master_answer = f"こんにちは {self.user.username}さん、お会いできてうれしいです。私はユミと申します。私たちとともに支え合い、安全な場を築けることを願っています。\
-                              まず、今日こちらに来られた理由を教えていただけますか？対処したいニーズや懸念点はありますか？"       
+        self.master_answer = f"こんにちは {self.user.username}さん！話をするためにここにいます。愚痴を言いたい、アドバイスを求めたい、またはちょっとしたおしゃべりをしたいですか？"       
         self.create_chat()
 
         
     def french_chat(self):
         self.new_chat_name = "Chat avec Yumi"
-        self.master_answer = f"Bonjour {self.user.username}, c'est un plaisir de vous rencontrer. Je suis Yumi. J'espère que nous pourrons créer ensemble\
-                             un espace bienveillant et sécurisé. Pour commencer, pouvez-vous me dire ce qui vous amène ici aujourd'hui ? Quels sont vos besoins ou \
-                             préoccupations que vous souhaitez aborder ?"
+        self.master_answer = f"Bonjour {self.user.username}! Je suis là pour discuter. Envie de te défouler, chercher quelques conseils ou simplement échanger quelques mots?"
         self.create_chat()
 
     def toggle_modal(self):
