@@ -41,8 +41,8 @@ def auth_layout(*args):
             background_clip="text",
         ),
         rx.text(
-            rx.span("An compassionate AI therapist, made with ❤️ by Kai - An AI Architect and \
-                     passionate mental health helpline volunteer."),
+            rx.span("An compassionate AI emotional support companion, made with ❤️ by Team Yumi. ",
+                    rx.link("Learn more. ", href="/about", color="blue.500")),
             display="flex",
             size="sm",
             color=styles.text_light_color,
@@ -57,15 +57,15 @@ def auth_layout(*args):
             color="#A9A9A9",
         ),
         *args,
-        rx.box(
-            linkedin_icon,
-            email_icon,
-            twitter_icon,
-            github_icon,
-            display="flex",
-            justify_content="center",
-            mb=4
-        ),
+        # rx.box(
+        #     linkedin_icon,
+        #     email_icon,
+        #     twitter_icon,
+        #     github_icon,
+        #     display="flex",
+        #     justify_content="center",
+        #     mb=4
+        # ),
         rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;font-size:14px;height:36px;' 
                              src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>""",
                 position="fixed",

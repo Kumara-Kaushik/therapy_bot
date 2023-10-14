@@ -6,3 +6,4 @@ from .signup import signup
 from .login import login
 from .chat import chat
 from .terms import terms_layout, privacy_layout
+from .about import about_layout
