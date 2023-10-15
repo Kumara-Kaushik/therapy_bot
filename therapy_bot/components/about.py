@@ -21,7 +21,7 @@ def about_layout():
 
             <ul>
                 <li><strong>Kumar Kaushik:</strong> Our lead AI Engineer from Japan, who has personally witnessed the depth of mental health crises while volunteering at a mental-health hotline.</li></br>
-                <li><strong>Kamal Muthiah:</strong> A Civil Engineer with invaluable venture capital experience, bringing a unique blend of technical know-how and business acumen to the table.</li></br>
+                <li><strong>Kamal Muthiah:</strong> A Civil Engineer with invaluable venture capital experience, bringing a distinct perspective and strong business acumen to the table.</li></br>
                 <li><strong>Aline Boanova:</strong> A seasoned Medical Doctor with extensive experience in the realm of mental health. Her insights provide the bridge between technology and the human psyche.</li></br>
                 <li><strong>Hiral Arora:</strong> An Entrepreneur boasting a rich background in Product Marketing. She ensures that Yumi is not just effective but also widely accessible.</li></br>
                 <li><strong>Leonhard Lukoschek:</strong> Another pivotal Medical Doctor in our team with deep expertise in health tech, helping us innovate and streamline our solutions.</li></br>
