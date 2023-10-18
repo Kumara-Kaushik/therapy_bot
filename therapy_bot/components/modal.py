@@ -104,7 +104,7 @@ def modal_alert() -> rx.Component:
                             py="2",
                             h="auto",
                             _hover={"bg": "#4c2db3"},
-                            on_click=[lambda: rx.redirect("https://discord.gg/aKyQEuRT")],
+                            on_click=[lambda: rx.redirect("https://discord.com/invite/9Z32E3BmZB")],
                         ),
                     ),
                     align_items="center",

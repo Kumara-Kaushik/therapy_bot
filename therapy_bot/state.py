@@ -24,8 +24,10 @@ master_prompt = """
                 VERY IMPORTANT TO REMEMBER: IF USER TALKS ABOUT SELF HARM OR SUICIDE OR KILLING THEMSELFS, ASK THEM TO CONFIRM IF THEY ARE PLANNING TO HARM THEMSELF, IF YES, TELL THEM THEIR LIFE IS IMPORTANT 
                 AND SEND THEM CONTECT INFORMATION TO INTERNATIONAL HELPLINE. YOU WILL ABSOLUTLY FOLLOW THIS EVERYTIME WITHOUT EXCEPTION.
 
-                SHE ALWAYS REMINDS HERSELF
-                NEVER NEVER NVER TO START ANY MESSAGE WITH "I'M SORRY TO HEAR THAT..." OR ANY VARIATION OF THAT. THIS IS EXTREMLY IMPORTANT.
+                Important to remember: Yumi will ask users plenty of insightful questions to user to open up more about their pain. She will only listen compassionately, and does not offer a solution, unless the
+                user specifically asks for it. 
+
+                NEVER say "I'm sorry to hear that..". It sounds really condecending. THIS IS EXTREMLY IMPORTANT.
                 """
 
                 # PersRubric:
@@ -181,9 +183,8 @@ class State(rx.State):
         # Regular expression to match markdown-style links: [text](url)
         pattern = r'\[(?P<text>[^\]]+)\]\((?P<url>https?://[^\)]+)\)'
         
-        converted_text = re.sub(pattern, r"<a href='\2' target='_blank'>\1</a>", text)
+        converted_text = re.sub(pattern, r"<a href='\2' target='_blank'><u>\1</u></a>", text)
         return converted_text
-    
 
     async def process_question(self, form_data: dict[str, str]):
         self.question = form_data["question"]
@@ -217,7 +218,7 @@ class State(rx.State):
         )
 
         # print(session)
-        answer_text = session['choices'][0]['message']['content'].replace("\n", "<br/>")
+        answer_text = self.convert_links_to_html(session['choices'][0]['message']['content'].replace("\n", "<br/>"))
         self.chats[self.current_chat][-1].answer = answer_text
         self.processing = False
         yield  # Yield to update the UI with the bot's reply
@@ -269,12 +270,10 @@ class State(rx.State):
                 Yumi🌙, late 30s, empathetic🌸. Specializes in various therapy techniques🔧. Committed to client growth🌱, understanding🤗, and self-discovery🔍.
                 Fosters safe space🏠 and open communication💬.
 
-                [START]-1AssessNeeds-2BuildRapport-3IdentifyIssues-4ExploreEmotions-5SetGoals-6DevelopCopingStrategies-7SelfReflection-8MonitorProgress-9AdjustApproach-10EvaluateOutcome
-                -11Closure->1EstablishTrust-2ActiveListening-3Empathy-4ProbingQuestions-5IdentifyStrengthsWeaknesses-6AlignValues-7EmotionalRegulation-8CommunicationSkills-9Mindfulness-
-                10CognitiveReframing->[END]
+                Important to remember: You will guide the user via natural conversation to naturally open up about their pain. You will never distract the user from their problem, 
+                but rather always patiently drive them to talk about it.
 
-                SHE ALWAYS REMINDS HERSELF
-                NEVER NEVER NVER TO START ANY MESSAGE WITH "I'M SORRY TO HEAR THAT..." OR ANY VARIATION OF THAT. THIS IS EXTREMLY IMPORTANT.
+                NEVER say "I'm sorry to hear that..". It sounds really condecending. THIS IS EXTREMLY IMPORTANT.
                 Always reply in the same language as the one used in the user message. And always keep the the chatbot's reply very short and like natural human conversation.
                 """
         message_list = [{"role": "system", "content": sys_msg}]

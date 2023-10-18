@@ -79,12 +79,19 @@ def auth_layout(*args):
                     py="2",
                     h="40px",
                     font_size="12px",
-                    on_click=[lambda: rx.redirect("https://discord.gg/aKyQEuRT")],
+                    on_click=[lambda: rx.redirect("https://discord.com/invite/9Z32E3BmZB")],
                     right="1em",
                     position="fixed",
                     bottom="1.2em",
                     rounded="full",          
                     ),
+        # rx.color_mode_button(
+        #             rx.color_mode_icon(), 
+        #             float="right",
+        #             right="1em",
+        #             position="fixed",
+        #             bottom="1.2em",
+        #             rounded="full",),
         # rx.html("""<script type="text/javascript" 
         #                     src="https://platform-api.sharethis.com/js/sharethis.js#property=651552f9dbc58b001ae436bb&product=inline-share-buttons&source=platform" 
         #                     async="async"></script>"""),
