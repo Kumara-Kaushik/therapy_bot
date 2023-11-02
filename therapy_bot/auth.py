@@ -41,7 +41,7 @@ def auth_layout(*args):
             background_clip="text",
         ),
         rx.text(
-            rx.span("An compassionate AI emotional support companion, made with ❤️ by Team Yumi. ",
+            rx.span("An compassionate AI emotional support companion, made with ❤️ by Kai. ",
                     rx.link("Learn more. ", href="/about", color="blue.500")),
             display="flex",
             size="sm",

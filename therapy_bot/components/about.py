@@ -6,7 +6,7 @@ def about_layout():
     """Layout for the About us page."""
     return rx.box(
         rx.heading(
-            rx.span("About us"),
+            rx.span("About Me"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -17,15 +17,9 @@ def about_layout():
         ),
         rx.text(
             rx.html("""
-            <p>Meet Team Yumi, a passionate collective of experts from various walks of life, driven by a common goal: to support and provide emotional solace through technology. At the heart of our team:</p></br>
+            <p>Hey there!</br></br> I'm Kai, The tech enthusiast behind Yumi. For the past five years, I've been immersed in AI work here in Japan, and it's where Yumi came to life. The idea was born out of real conversations from a mental health hotline, showing me the power of a listening ear.
 
-            <ul>
-                <li><strong>Kumar Kaushik:</strong> Our lead AI Engineer from Japan, who has personally witnessed the depth of mental health crises while volunteering at a mental-health hotline.</li></br>
-                <li><strong>Kamal Muthiah:</strong> A Civil Engineer with invaluable venture capital experience, bringing a distinct perspective and strong business acumen to the table.</li></br>
-                <li><strong>Aline Boanova:</strong> A seasoned Medical Doctor with extensive experience in the realm of mental health. Her insights provide the bridge between technology and the human psyche.</li></br>
-                <li><strong>Hiral Arora:</strong> An Entrepreneur boasting a rich background in Product Marketing. She ensures that Yumi is not just effective but also widely accessible.</li></br>
-                <li><strong>Leonhard Lukoschek:</strong> Another pivotal Medical Doctor in our team with deep expertise in health tech, helping us innovate and streamline our solutions.</li></br>
-            </ul></br>
+I wear many hats – coder, designer, and your go-to support. My aim? To make Yumi a helpful, easy-to-use app for anyone needing a bit of mental space. It's about straightforward, honest support, one tap at a time.</p></br>
 
             """),
             display="flex",
