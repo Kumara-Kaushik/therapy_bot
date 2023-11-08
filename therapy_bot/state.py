@@ -207,7 +207,7 @@ class State(rx.State):
         # Step 3: Fetch bot's reply (non-streamed)
         self.processing = True
         session = openai.ChatCompletion.create(
-            model=os.getenv("OPENAI_MODEL", "gpt-4"),
+            model=os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
             messages=self.api_message(),
             temperature=1.2,
             max_tokens=256,
