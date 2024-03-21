@@ -4,9 +4,9 @@ from therapy_bot.state import AuthState
 
 def terms_layout():
     """Layout for the Terms and Conditions page."""
-    return rx.box(
-        rx.heading(
-            rx.span("Terms and Conditions"),
+    return rx.chakra.box(
+        rx.chakra.heading(
+            rx.chakra.span("Terms and Conditions"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -15,7 +15,7 @@ def terms_layout():
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
                 <p>Last updated: 28th September 2023</p></br>
                 
@@ -34,7 +34,7 @@ def terms_layout():
             max_height="500px",   # Adjust as necessary
             padding="1em",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
                 <h2 style="font-size: 1.5rem; margin-top: 1rem;">Usage</h2>
                 <p>1. The Service is designed to provide compassionate listening through our AI chatbot. It is intended for venting and casual conversation only.</p>
@@ -90,7 +90,7 @@ def terms_layout():
             padding="1em",
             background_color="rgba(236, 236, 236, 0.05)",
         ),
-        rx.button(
+        rx.chakra.button(
             "Return to Signup",
             bg="#5535d4",
             box_shadow="md",
@@ -119,9 +119,9 @@ def terms_layout():
 
 def privacy_layout():
     """Layout for the Privacy Policy page."""
-    return rx.box(
-        rx.heading(
-            rx.span("Privacy Policy"),
+    return rx.chakra.box(
+        rx.chakra.heading(
+            rx.chakra.span("Privacy Policy"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -130,7 +130,7 @@ def privacy_layout():
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
                 <p>Last updated: 28th September 2023</p></br>
                 
@@ -149,7 +149,7 @@ def privacy_layout():
             max_height="500px",   # Adjust as necessary
             padding="1em",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
                 <h2 style="font-size: 1.5rem; margin-top: 1rem;"> Information We Collect</h3>
                 <p>1 Personal Information: When you use YumiSensei.Online, we may collect personal information that you voluntarily provide to us, such as your name, email address, and any other information you choose to provide.</p>
@@ -204,7 +204,7 @@ def privacy_layout():
             padding="1em",
             background_color="rgba(236, 236, 236, 0.05)",
         ),
-        rx.button(
+        rx.chakra.button(
             "Return to Signup",
             bg="#5535d4",
             box_shadow="md",

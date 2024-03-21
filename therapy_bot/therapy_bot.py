@@ -12,7 +12,7 @@ def index() -> rx.Component:
 
 
 # Add state and page to the app.
-app = rx.App(state=State, style=styles.base_style, stylesheets=[
+app = rx.App(style=styles.base_style, stylesheets=[
         "threeDotsLoading.css",  # This path is relative to assets/
     ])
 app.add_page(index, title="Login", description="Chat with Yumi")
@@ -21,4 +21,3 @@ app.add_page(terms_layout, route="/terms",title="Terms and Conditions", descript
 app.add_page(privacy_layout, route="/policy",title="Privacy Policy", description="Chat with Yumi")
 app.add_page(about_layout, route="/about",title="About Us", description="Chat with Yumi")
 app.add_page(chat, title="Chat with Yumi", on_load=State.check_login())
-app.compile()

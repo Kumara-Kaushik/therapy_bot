@@ -4,9 +4,9 @@ from therapy_bot.state import AuthState
 
 def about_layout():
     """Layout for the About us page."""
-    return rx.box(
-        rx.heading(
-            rx.span("About Me"),
+    return rx.chakra.box(
+        rx.chakra.heading(
+            rx.chakra.span("About Me"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -15,7 +15,7 @@ def about_layout():
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
             <p>Hey there!</br></br> I'm Kai, The tech enthusiast behind Yumi. For the past five years, I've been immersed in AI work here in Japan, and it's where Yumi came to life. The idea was born out of real conversations from a mental health hotline, showing me the power of a listening ear.
 
@@ -32,8 +32,8 @@ I wear many hats – coder, designer, and your go-to support. My aim? To make Yu
             max_height="auto",   # Adjust as necessary
             padding="1em",
         ),
-        rx.heading(
-            rx.span("Why Yumi"),
+        rx.chakra.heading(
+            rx.chakra.span("Why Yumi"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -42,7 +42,7 @@ I wear many hats – coder, designer, and your go-to support. My aim? To make Yu
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
             <p>Mental health faces a daunting predicament in Japan. With an estimated 30 million individuals suffering from mental health issues, a staggering 70% of them go 
                     untreated. Alarmingly, half of the junior-high and high school students experience mild to severe depression. In a society where mental illness is misconstrued as a sign 
@@ -60,8 +60,8 @@ I wear many hats – coder, designer, and your go-to support. My aim? To make Yu
             max_height="auto",   # Adjust as necessary
             padding="1em",
         ),
-        rx.heading(
-            rx.span("The Yumi Difference"),
+        rx.chakra.heading(
+            rx.chakra.span("The Yumi Difference"),
             display="flex",
             size="2xl",
             flex_direction="column",
@@ -70,7 +70,7 @@ I wear many hats – coder, designer, and your go-to support. My aim? To make Yu
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
+        rx.chakra.text(
             rx.html("""
             <p>While the barriers to seeking mental health support in Japan are multifaceted, Yumi is here to provide an empathetic ear without judgment. People feel the need to not burden their parents, 
                     and therapy's high costs make it inaccessible for many. Concerns about judgment from friends or the workplace often silence those in need. Existing online chatbots feel artificial and 
@@ -100,7 +100,7 @@ I wear many hats – coder, designer, and your go-to support. My aim? To make Yu
             max_height="auto",   # Adjust as necessary
             padding="1em",
         ),
-        rx.button(
+        rx.chakra.button(
             "Return to Signup",
             bg="#5535d4",
             box_shadow="md",

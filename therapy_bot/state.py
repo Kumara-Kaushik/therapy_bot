@@ -206,7 +206,7 @@ class State(rx.State):
 
         # Step 3: Fetch bot's reply (non-streamed)
         self.processing = True
-        session = openai.ChatCompletion.create(
+        session = openai.chat.completions.create(
             model=os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
             messages=self.api_message(),
             temperature=1.2,
@@ -218,7 +218,7 @@ class State(rx.State):
         )
 
         # print(session)
-        answer_text = self.convert_links_to_html(session['choices'][0]['message']['content'].replace("\n", "<br/>"))
+        answer_text = self.convert_links_to_html(session.choices[0].message.content.replace("\n", "<br/>"))
         self.chats[self.current_chat][-1].answer = answer_text
         self.processing = False
         yield  # Yield to update the UI with the bot's reply

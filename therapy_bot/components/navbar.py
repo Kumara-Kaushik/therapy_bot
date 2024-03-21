@@ -6,30 +6,30 @@ from therapy_bot.state import State
 
 def navbar():
     bot_icon = "/yumi.png"
-    return rx.box(
-        rx.hstack(
-            rx.hstack(
-                # rx.icon(
+    return rx.chakra.box(
+        rx.chakra.hstack(
+            rx.chakra.hstack(
+                # rx.chakra.icon(
                 #     tag="hamburger",
                 #     mr=4,
                 #     on_click=State.toggle_drawer,
                 #     cursor="pointer",
                 # ),
-                rx.link(
-                    rx.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
+                rx.chakra.link(
+                    rx.chakra.image(src=bot_icon, border_radius="full", width="40px", height="40px", padding_top="0em"),
                     href="/chat",
                 ),
-                rx.breadcrumb(
-                    # rx.breadcrumb_item(
-                    #     rx.heading("ReflexGPT", size="sm"),
+                rx.chakra.breadcrumb(
+                    # rx.chakra.breadcrumb_item(
+                    #     rx.chakra.heading("ReflexGPT", size="sm"),
                     # ),
-                    rx.breadcrumb_item(
-                        rx.text(State.current_chat, size="sm", font_weight="normal"),
+                    rx.chakra.breadcrumb_item(
+                        rx.chakra.text(State.current_chat, size="sm", font_weight="normal"),
                     ),
                 ),
             ),
-            rx.hstack(
-                # rx.button(
+            rx.chakra.hstack(
+                # rx.chakra.button(
                 #     "+ New chat",
                 #     bg=styles.accent_color,
                 #     px="4",
@@ -37,8 +37,8 @@ def navbar():
                 #     h="auto",
                 #     on_click=State.toggle_modal,
                 # ),
-                rx.menu(
-                    rx.menu_button(
+                rx.chakra.menu(
+                    rx.chakra.menu_button(
                         "Language",
                             bg=styles.accent_color,
                             px="4",
@@ -46,27 +46,27 @@ def navbar():
                             h="auto",
                             rounded="lg"
                     ),
-                    rx.menu_list(
-                        rx.menu_item("English",
+                    rx.chakra.menu_list(
+                        rx.chakra.menu_item("English",
                                      on_click=[State.english_chat]),
-                        rx.menu_divider(),
-                        rx.menu_item("Japanese",
+                        rx.chakra.menu_divider(),
+                        rx.chakra.menu_item("Japanese",
                                      on_click=[State.japanese_chat]),
-                        rx.menu_divider(),
-                        rx.menu_item("French",
+                        rx.chakra.menu_divider(),
+                        rx.chakra.menu_item("French",
                                      on_click=[State.french_chat]),
                     ),
                 ),
-                rx.menu(
-                    rx.menu_button(
-                        rx.avatar(name="User", size="md"),
-                        rx.box(),
+                rx.chakra.menu(
+                    rx.chakra.menu_button(
+                        rx.chakra.avatar(name="User", size="md"),
+                        rx.chakra.box(),
                     ),
-                    rx.menu_list(
-                        rx.menu_item("Delete Chat",
+                    rx.chakra.menu_list(
+                        rx.chakra.menu_item("Delete Chat",
                                      on_click=State.toggle_modal),
-                        rx.menu_divider(),
-                        rx.menu_item("Logout",
+                        rx.chakra.menu_divider(),
+                        rx.chakra.menu_item("Logout",
                                      on_click=[State.enter_user_msg_number, State.logout]),
                     ),
                 ),

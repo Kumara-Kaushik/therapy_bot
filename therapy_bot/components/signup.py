@@ -8,28 +8,28 @@ from therapy_bot import styles
 def signup():
     """The sign up page."""
     return auth_layout(
-        rx.box(
-            rx.input(placeholder="Username", 
+        rx.chakra.box(
+            rx.chakra.input(placeholder="Username", 
                      color="white",
                      on_blur=AuthState.set_username, mb=4),
-            rx.input(placeholder="Email ID", 
+            rx.chakra.input(placeholder="Email ID", 
                      color="white",
                      on_blur=AuthState.set_email, mb=4),
-            rx.input(
+            rx.chakra.input(
                 type_="password",
                 placeholder="Password",
                 color="white",
                 on_blur=AuthState.set_password,
                 mb=4,
             ),
-            rx.input(
+            rx.chakra.input(
                 type_="password",
                 placeholder="Confirm password",
                 color="white",
                 on_blur=AuthState.set_confirm_password,
                 mb=4,
             ),
-            rx.button(
+            rx.chakra.button(
                 "Sign up",
                 on_click=[AuthState.signup],
                 bg="blue.500",
@@ -37,10 +37,10 @@ def signup():
                 _hover={"bg": "blue.600"},
                 mb=2
             ),
-            rx.box(rx.span("By signing up, you agree to our  ", 
-                        rx.link("Terms of Use ", href="/terms", color="blue.500"),
+            rx.chakra.box(rx.chakra.span("By signing up, you agree to our  ", 
+                        rx.chakra.link("Terms of Use ", href="/terms", color="blue.500"),
                         "& ",
-                        rx.link("Privacy Policy", href="/policy", color="blue.500"),
+                        rx.chakra.link("Privacy Policy", href="/policy", color="blue.500"),
                         color="#A9A9A9",
                         font_size="12px",
                     )
@@ -52,9 +52,9 @@ def signup():
             max_width="400px",
             border_radius="lg",
         ),
-        rx.text(
+        rx.chakra.text(
             "Already have an account? ",
-            rx.link("Sign in here.", href="/", color="blue.500"),
+            rx.chakra.link("Sign in here.", href="/", color="blue.500"),
             color="gray.600",
             text_align="center",
         ),

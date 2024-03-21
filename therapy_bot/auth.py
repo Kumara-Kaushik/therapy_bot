@@ -3,8 +3,8 @@ from therapy_bot import styles
 
 
 def social_icon(src, link):
-    return rx.link(
-            rx.image(src=src, width="24px", height="24px", ml=2, mr=2),
+    return rx.chakra.link(
+            rx.chakra.image(src=src, width="24px", height="24px", ml=2, mr=2),
             href=link
         )
 
@@ -21,16 +21,16 @@ def auth_layout(*args):
     # youtube_icon = social_icon("/youtube_icon.png", "https://www.youtube.com/channel/your-channel-id")
 
 
-    return rx.box(
-        rx.image(
+    return rx.chakra.box(
+        rx.chakra.image(
             src="/yumi.png",  # Replace with the path to your image
             border_radius="full",  # Makes the image circular
             width="150px",  # Optional: Adjust the size as needed
             height="150px",  # Optional: Adjust the size as needed
             mb=4,  # Optional: Margin-bottom for spacing between the image and the heading
         ),
-        rx.heading(
-            rx.span("Hi! I'm Yumi!"),
+        rx.chakra.heading(
+            rx.chakra.span("Hi! I'm Yumi!"),
             display="flex",
             size="2xl",
             # color=styles.text_light_color,
@@ -40,9 +40,9 @@ def auth_layout(*args):
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
         ),
-        rx.text(
-            rx.span("An compassionate AI emotional support companion, made with ❤️ by Kai. ",
-                    rx.link("Learn more. ", href="/about", color="blue.500")),
+        rx.chakra.text(
+            rx.chakra.span("An compassionate AI emotional support companion, made with ❤️ by Kai. ",
+                    rx.chakra.link("Learn more. ", href="/about", color="blue.500")),
             display="flex",
             size="sm",
             color=styles.text_light_color,
@@ -51,13 +51,13 @@ def auth_layout(*args):
             text_align="center",
             width=["100%", "100%", "60%"],
         ), 
-        rx.text(
+        rx.chakra.text(
             "Sign in or sign up to get started!",
             # font_weight="medium",
             color="#A9A9A9",
         ),
         *args,
-        # rx.box(
+        # rx.chakra.box(
         #     linkedin_icon,
         #     email_icon,
         #     twitter_icon,
@@ -71,7 +71,7 @@ def auth_layout(*args):
                 position="fixed",
                 left="1em",
                 bottom="1em"),
-        rx.button(
+        rx.chakra.button(
                     "Give Feedback",
                     bg="#5535d4",
                     box_shadow="md",
@@ -85,8 +85,8 @@ def auth_layout(*args):
                     bottom="1.2em",
                     rounded="full",          
                     ),
-        # rx.color_mode_button(
-        #             rx.color_mode_icon(), 
+        # rx.chakra.color_mode_button(
+        #             rx.chakra.color_mode_icon(), 
         #             float="right",
         #             right="1em",
         #             position="fixed",

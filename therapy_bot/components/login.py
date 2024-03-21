@@ -8,18 +8,18 @@ from therapy_bot import styles
 def login():
     """The login page."""
     return auth_layout(
-        rx.box(
-            rx.input(placeholder="Username or Email ID", 
+        rx.chakra.box(
+            rx.chakra.input(placeholder="Username or Email ID", 
                      color="white",
                      on_blur=AuthState.set_username, mb=4),
-            rx.input(
+            rx.chakra.input(
                 type_="password",
                 placeholder="Password",
                 color="white",
                 on_blur=AuthState.set_password,
                 mb=4,
             ),
-            rx.button(
+            rx.chakra.button(
                 "Log in",
                 on_click=[AuthState.login],
                 bg="blue.500",
@@ -33,9 +33,9 @@ def login():
             max_width="400px",
             border_radius="lg",
         ),
-        rx.text(
+        rx.chakra.text(
             "Don't have an account yet? ",
-            rx.link("Sign up here.", href="/signup", color="blue.500"),
+            rx.chakra.link("Sign up here.", href="/signup", color="blue.500"),
             color="#A9A9A9",
             text_align="center",
         ),

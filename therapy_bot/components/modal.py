@@ -4,16 +4,16 @@ from therapy_bot.state import State
 
 def modal() -> rx.Component:
     """A modal to create a new chat."""
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header(
-                    rx.hstack(
-                        rx.vstack(
-                            rx.text("Are you sure you want to delete this Chat?"),
-                            rx.text("All your data will be lost.")
+    return rx.chakra.modal(
+        rx.chakra.modal_overlay(
+            rx.chakra.modal_content(
+                rx.chakra.modal_header(
+                    rx.chakra.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.text("Are you sure you want to delete this Chat?"),
+                            rx.chakra.text("All your data will be lost.")
                         ),
-                        rx.icon(
+                        rx.chakra.icon(
                             tag="close",
                             font_size="sm",
                             on_click=State.toggle_modal,
@@ -25,8 +25,8 @@ def modal() -> rx.Component:
                         justify_content="space-between",
                     )
                 ),
-                # rx.modal_body(
-                #     rx.input(
+                # rx.chakra.modal_body(
+                #     rx.chakra.input(
                 #         placeholder="Type something...",
                 #         on_blur=State.set_new_chat_name,
                 #         bg="#222",
@@ -34,9 +34,9 @@ def modal() -> rx.Component:
                 #         _placeholder={"color": "#fffa"},
                 #     ),
                 # ),
-                rx.modal_footer(
-                    rx.hstack(
-                    rx.button(
+                rx.chakra.modal_footer(
+                    rx.chakra.hstack(
+                    rx.chakra.button(
                             "Yes",
                             bg="#5535d4",
                             box_shadow="md",
@@ -46,7 +46,7 @@ def modal() -> rx.Component:
                             _hover={"bg": "#4c2db3"},
                             on_click=[State.create_chat, State.toggle_modal],
                         ),
-                        rx.button(
+                        rx.chakra.button(
                             "No",
                             bg="#5535d4",
                             box_shadow="md",
@@ -66,15 +66,15 @@ def modal() -> rx.Component:
 
 
 def modal_alert() -> rx.Component:
-    return rx.modal(
-        rx.modal_overlay(
-            rx.modal_content(
-                rx.modal_header(
-                    rx.hstack(
-                        rx.vstack(
-                            rx.text("Engagement Alert"),
+    return rx.chakra.modal(
+        rx.chakra.modal_overlay(
+            rx.chakra.modal_content(
+                rx.chakra.modal_header(
+                    rx.chakra.hstack(
+                        rx.chakra.vstack(
+                            rx.chakra.text("Engagement Alert"),
                         ),
-                        rx.icon(
+                        rx.chakra.icon(
                             tag="close",
                             font_size="sm",
                             on_click=State.toggle_change,
@@ -86,17 +86,17 @@ def modal_alert() -> rx.Component:
                         justify_content="space-between",
                     )
                 ),
-                rx.modal_body(
+                rx.chakra.modal_body(
                     rx.html("Hey! Is the conversation helping? I'd like to make this app accessible to \
                          everyone who needs support, which unfortunately isn't cheap. </br></br>Please Support me on this mission \
                          and take some time to leave some feedback on the Discord Server for any suggestions or improvements! :) \
                          </br></br>If you have already done so, Please ignore this message. ")
                 ),
-                rx.modal_footer(
-                    rx.hstack(
+                rx.chakra.modal_footer(
+                    rx.chakra.hstack(
                         rx.html("""<a href='https://ko-fi.com/U7U2N7KRS' target='_blank'><img height='36' style='border:0px;height:36px;' 
                              src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>"""),
-                        rx.button(
+                        rx.chakra.button(
                             "Join Discord",
                             bg="#5535d4",
                             box_shadow="md",
@@ -120,17 +120,17 @@ def modal_alert() -> rx.Component:
 
 
 # def modal_signup_alert() -> rx.Component:
-#     return rx.modal(
-#             rx.modal_overlay(
-#                 rx.modal_content(
-#                     rx.modal_header(
-#                         rx.text("Congratulations!")
+#     return rx.chakra.modal(
+#             rx.chakra.modal_overlay(
+#                 rx.chakra.modal_content(
+#                     rx.chakra.modal_header(
+#                         rx.chakra.text("Congratulations!")
 #                     ),
-#                     rx.modal_body(
+#                     rx.chakra.modal_body(
 #                         rx.html("You have successfully signed up!</br></br>Login to chat with Yumi")
 #                     ),
-#                     rx.modal_footer(
-#                         rx.button(
+#                     rx.chakra.modal_footer(
+#                         rx.chakra.button(
 #                             "Close", 
 #                             bg="#5535d4",
 #                             box_shadow="md",
